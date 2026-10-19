@@ -80,3 +80,17 @@ NOT RUN — actual deployed revision, subsequent Git-triggered Pages release, fr
 ## Final targeted repair checks
 
 PASS — intermediate 768px screenshot review found a missing word space when a responsive line break is hidden. Added explicit whitespace; responsive reflow, system selectors, and a new browser-error check passed (3 targeted tests). All seven exported pages produced no uncaught/console errors. License-file trailing whitespace was normalized without changing license terms. The next CI revision also pins verified current official Node-24-based checkout/setup-node actions by immutable SHA.
+
+Origin centralization now uses `src/content/origins.json` in metadata, export finalization and tests. The first metadata-test attempt exposed a Node ESM JSON import-attribute requirement; it was corrected and all seven affected route checks passed. Live inspection also identified the root title template omitting the owner name; route metadata now uses an explicit absolute title.
+
+## Verified first Pages deployment
+
+PASS — Git-connected project `husseinelhaddad` assigned **https://husseinelhaddad.pages.dev**. Initial deployment `129fbb22-3d47-4727-860b-f14ba37fe52a` completed successfully on 19 October 2026 at 20:48:47 UTC. It cloned/built main revision `b37ed116bdd66790e29b80f7f802b961510a3bba`; `/build-info.json` confirms that exact revision and both origins. API reports `uses_functions: false`. The initial build was started through the Git deployment API; subsequent automatic Git-trigger proof is still required.
+
+PASS — actual free hostname: HTTPS validates; browser and curl return Home 200; nested Olist route 200; nonexistent path 404. Security/CSP, cache revalidation, frame, referrer and permissions headers are present. A transient 403 immediately after deployment was followed by verified 200 responses without bypassing access or TLS checks.
+
+PASS — owner repaired Git installation and public delegation; Cloudflare Free zone is active. Both apex and www are associated with Pages.
+
+FAIL — custom hosts currently return 525 from the previous origin. Pages reports “CNAME record not set” for both. Exact DNS records and Always Use HTTPS action were supplied to the owner; the current Wrangler session lacks DNS edit permissions. No TLS verification was disabled.
+
+The shared-origin/owner-inclusive-title metadata revision passed lint, strict types, export, and all seven affected route accessibility/metadata checks after the ESM import fix.

@@ -32,3 +32,5 @@ Clean install/audit, lint, strict types, four logic tests, 20 Chromium browser c
 Initial release pushed: `b37ed116bdd66790e29b80f7f802b961510a3bba`. GitHub Actions run `39321605155` passed every step. Wrangler OAuth/account and existing Free zone verified. Git-connected Pages creation returned Cloudflare error `8000011` (Git installation issue); owner authorization/repair requested. No Pages project was created by the failed request and no free hostname is claimed.
 
 Owner saved the assigned Cloudflare nameservers at Name.com. Public DNS now returns both correct nameservers; Cloudflare zone activation is still pending at the latest check. Apex A still resolves to an existing parking address; do not replace unknown records blindly. DNS access remains owner-operated because the Wrangler session lacks record permissions.
+
+Git installation repaired by owner. Git-connected Pages project created successfully as `husseinelhaddad`, assigned `https://husseinelhaddad.pages.dev`. Zone is now active. Build and HTTPS verification are underway.

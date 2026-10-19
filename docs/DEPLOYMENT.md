@@ -4,20 +4,24 @@
 
 GitHub: `https://github.com/HusseinElhaddad/portfolio`, public, `main`. The repository was empty at initial inspection. No repository rulesets were returned; the owner authorized a validated initial main release for this case. GitHub CLI login and Wrangler OAuth were verified. No credential is stored in this repository.
 
-Cloudflare: existing owner account verified by Wrangler. The domain has a **Free Website** zone. At initial inspection it was pending, with public delegation still on Name.com. The registrar was independently confirmed as **Name.com, Inc.** through public RDAP. Initial source revision: `b37ed116bdd66790e29b80f7f802b961510a3bba`; [GitHub Actions run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) passed. Git-integrated Pages creation returned HTTP 401 / Cloudflare code `8000011`: an internal issue with the Git installation. The request created no project. Owner-operated app authorization/repair is pending; no Pages hostname is claimed.
+Cloudflare: Git-connected Pages project **`husseinelhaddad`**, assigned free production origin **https://husseinelhaddad.pages.dev**. Owner repaired the GitHub integration after the initial `8000011` error. Both production and preview build environments use the pinned Node version and actual free origin. No runtime Functions or paid resources were configured.
 
-## Intended Pages Git configuration
+The domain has an **active Free Website** zone. The owner saved the assigned Cloudflare nameservers at Name.com; public delegation reflects them. Both domains are associated with Pages. The free production origin is live and verified; custom-host DNS/HTTPS remains pending because Pages reports CNAME records missing. The earlier parking A record is not evidence of a portfolio deployment.
 
-Create a **Pages** Git-integrated project, not a runtime Worker or a direct-upload-only project:
+Initial source revision: `b37ed116bdd66790e29b80f7f802b961510a3bba`; [GitHub Actions run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) passed. First Pages deployment `129fbb22-3d47-4727-860b-f14ba37fe52a` completed successfully from Git main through the API (ad hoc trigger), with no Functions. The actual free host returns 200 for required pages and 404 for a missing path over valid HTTPS. Automatic preview and subsequent production Git-trigger verification are tracked in `docs/QA.md`.
+
+## Pages Git configuration
+
+Configured as a **Pages** Git-integrated project:
 
 - Repository: only `HusseinElhaddad/portfolio` where selectable.
-- Project name: prefer `husseinelhaddad`, subject to actual availability.
+- Project name: `husseinelhaddad`.
 - Production branch: `main`.
 - Build command: `npm run build`.
 - Output directory: `out`; root: repository root.
 - Node: `24.22.0`; `NODE_VERSION=24.22.0`.
 - `NEXT_PUBLIC_SITE_ORIGIN=https://husseinelhaddad.dev`.
-- Set `NEXT_PUBLIC_FREE_ORIGIN` to the actual assigned `https://…pages.dev` origin after verification.
+- `NEXT_PUBLIC_FREE_ORIGIN=https://husseinelhaddad.pages.dev`.
 - Preview branch deployments enabled. `CF_PAGES_BRANCH` drives the build's noindex header on non-main builds; Cloudflare also supplies preview indexing restrictions.
 - No Functions, bindings, paid services, Web Analytics or Zaraz.
 
@@ -34,7 +38,7 @@ Observed Cloudflare-assigned nameservers:
 - `rommy.ns.cloudflare.com`
 - `susan.ns.cloudflare.com`
 
-The owner subsequently saved the assigned nameservers at Name.com. Public DNS now returns both Cloudflare nameservers, while Cloudflare still reports the zone pending at the latest check. The apex A record still returns an existing parking address, not this portfolio. This is not a deployment success.
+The owner subsequently saved the assigned nameservers at Name.com. Public DNS now returns both Cloudflare nameservers and Cloudflare reports the zone active. The existing website records still route toward the previous host, which returns 525. Pages reports “CNAME record not set” for both domains.
 
 Original public nameservers observed before migration:
 
@@ -83,3 +87,7 @@ Cloudflare Pages → project → **Deployments** → choose a previously success
 Official Pages limits rechecked 19 October 2026: 500 builds/month, one concurrent build, 20,000 files, 25 MiB per file. This small static export fits these limits. Static asset requests are free under current terms; no inference, paid API, Worker, Function or R2 dependency exists. Student benefits are unnecessary. Review current terms before future architectural changes; free service is not guaranteed forever.
 
 Official references: [static Next.js](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/), [Git integration](https://developers.cloudflare.com/pages/configuration/git-integration/), [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/), [preview indexing](https://developers.cloudflare.com/pages/configuration/preview-deployments/), [limits](https://developers.cloudflare.com/pages/platform/limits/), [pricing](https://developers.cloudflare.com/pages/functions/pricing/), [rollback](https://developers.cloudflare.com/pages/configuration/rollbacks/).
+
+### Exact remaining DNS action
+
+In Cloudflare DNS for this active zone: replace only the apex parking address record with **CNAME `@` → `husseinelhaddad.pages.dev`** and set **CNAME `www` → `husseinelhaddad.pages.dev`**, automatic TTL, normal proxied setting. Remove only conflicting address records at those hostnames; preserve email MX/TXT and unrelated records. Both domains have already been associated in Pages. Enable **SSL/TLS → Edge Certificates → Always Use HTTPS** if off. Do not reduce origin TLS security to hide the existing 525 error. Recheck certificate/host status and path/query redirects after saving.

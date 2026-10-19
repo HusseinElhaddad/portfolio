@@ -1,7 +1,12 @@
 import { writeFile, readFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
-const origin =
-  process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://husseinelhaddad.dev";
+const origins = JSON.parse(
+  await readFile(
+    new URL("../src/content/origins.json", import.meta.url),
+    "utf8",
+  ),
+);
+const origin = process.env.NEXT_PUBLIC_SITE_ORIGIN || origins.canonicalOrigin;
 if (new URL(origin).protocol !== "https:" || new URL(origin).pathname !== "/")
   throw new Error("Canonical origin must be an HTTPS origin without a path.");
 const preview =
@@ -28,7 +33,7 @@ await writeFile(
   JSON.stringify({
     revision,
     canonicalOrigin: origin,
-    freeOrigin: process.env.NEXT_PUBLIC_FREE_ORIGIN || null,
+    freeOrigin: process.env.NEXT_PUBLIC_FREE_ORIGIN || origins.freeOrigin,
     preview,
   }) + "\n",
 );

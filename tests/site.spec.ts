@@ -1,3 +1,4 @@
+import origins from "../src/content/origins.json" with { type: "json" };
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const paths = [
@@ -16,12 +17,13 @@ for (const path of paths) {
   }) => {
     const response = await page.goto(path);
     expect(response?.status()).toBe(200);
+    await expect(page).toHaveTitle(/Hussein Elhaddad/);
     await page.locator("body").evaluate(() => document.fonts.ready);
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator("main")).toHaveCount(1);
     await expect(page.locator("link[rel=canonical]")).toHaveAttribute(
       "href",
-      `https://husseinelhaddad.dev${path}`,
+      `${origins.canonicalOrigin}${path}`,
     );
     const image = await page
       .locator('meta[property="og:image"]')
@@ -206,7 +208,7 @@ test("missing path returns an actual 404 and sitemap is canonical", async ({
   expect(await response.text()).toContain("Signal not found");
   const sitemap = await request.get("/sitemap.xml");
   for (const p of paths)
-    expect(await sitemap.text()).toContain(`https://husseinelhaddad.dev${p}`);
+    expect(await sitemap.text()).toContain(`${origins.canonicalOrigin}${p}`);
 });
 test("reduced motion and no JavaScript preserve essential information", async ({
   browser,
