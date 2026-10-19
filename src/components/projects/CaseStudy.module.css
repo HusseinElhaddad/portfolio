@@ -1,0 +1,253 @@
+.hero {
+  padding: 40px 0 0;
+}
+.back {
+  font: 11px var(--mono);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 40px;
+}
+.caseLabel {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(64px, 8vw, 110px);
+  letter-spacing: -0.065em;
+}
+.intro {
+  font: 400 clamp(21px, 2.8vw, 32px)/1.5 var(--heading);
+  letter-spacing: -0.025em;
+  max-width: 860px;
+  margin: 28px 0 45px;
+  color: var(--muted);
+}
+.facts {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 40px;
+  padding: 28px 0;
+  border-block: 1px solid var(--line);
+}
+.facts span {
+  font: 9px var(--mono);
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.facts p {
+  font-size: 12px;
+  margin: 12px 0 0;
+}
+.caseLayout {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 70px;
+  padding: 60px 0 80px;
+}
+.contents {
+  align-self: start;
+  position: sticky;
+  top: 40px;
+}
+.contents nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+}
+.contents a {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 10px 0;
+  text-decoration: none;
+}
+.contents a:hover {
+  color: var(--amber);
+}
+.body {
+  min-width: 0;
+}
+.section {
+  padding-top: 65px;
+}
+.section > .eyebrow {
+  margin-bottom: 18px;
+}
+.section h2 {
+  font-size: 34px;
+  margin-bottom: 24px;
+}
+.section p,
+.section li {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.section p strong,
+.section li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.section ul {
+  padding-left: 20px;
+  margin: 0 0 24px;
+}
+.section li {
+  margin-bottom: 10px;
+}
+.section :global(.text-link) {
+  color: var(--text);
+}
+.architecture {
+  margin: 24px 0 0;
+  background: var(--subtle);
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.architecture ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.architecture li {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 1 155px;
+  padding: 18px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+.architecture li span {
+  font: 9px var(--mono);
+  color: var(--teal);
+}
+.architecture figcaption {
+  font: 10px/1.8 var(--mono);
+  color: var(--muted);
+  margin-top: 20px;
+}
+.decision {
+  border-top: 1px solid var(--line);
+  padding: 25px 0 0;
+  margin-top: 25px;
+}
+.decision h3 {
+  font-size: 22px;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.decision p {
+  margin-bottom: 15px;
+}
+.bottomLinks {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+.section code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font: 12px/1.9 var(--mono);
+  background: var(--subtle);
+  padding: 3px 6px;
+  box-decoration-break: clone;
+}
+.section blockquote {
+  border-left: 2px solid var(--teal);
+  padding: 4px 0 4px 22px;
+  margin: 26px 0;
+}
+.section blockquote p {
+  margin: 0;
+}
+.section :global(.callout) {
+  background: var(--subtle);
+  border-left: 2px solid var(--amber);
+  padding: 20px;
+  font-size: 13px;
+}
+@media (max-width: 1000px) {
+  .caseLayout {
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 35px;
+  }
+  .facts {
+    gap: 25px;
+  }
+}
+@media (max-width: 760px) {
+  .caseLayout {
+    display: block;
+    padding-top: 32px;
+  }
+  .contents {
+    position: static;
+    margin-bottom: 30px;
+  }
+  .contents nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    margin-top: 12px;
+  }
+  .contents a {
+    min-height: 44px;
+  }
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .facts p {
+    margin-top: 5px;
+  }
+  .hero {
+    padding-top: 24px;
+  }
+  .back {
+    margin-bottom: 26px;
+  }
+  .caseLabel {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .section {
+    padding-top: 48px;
+  }
+  .section h2 {
+    font-size: 30px;
+  }
+  .section p,
+  .section li {
+    font-size: 14px;
+  }
+  .bottomLinks {
+    flex-wrap: wrap;
+  }
+  .architecture {
+    padding: 18px;
+  }
+  .architecture li {
+    flex-basis: 130px;
+  }
+  .intro {
+    font-size: 23px;
+  }
+}
