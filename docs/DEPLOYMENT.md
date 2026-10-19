@@ -4,7 +4,7 @@
 
 GitHub: `https://github.com/HusseinElhaddad/portfolio`, public, `main`. The repository was empty at initial inspection. No repository rulesets were returned; the owner authorized a validated initial main release for this case. GitHub CLI login and Wrangler OAuth were verified. No credential is stored in this repository.
 
-Cloudflare: existing owner account verified by Wrangler. The domain has a **Free Website** zone. At initial inspection it was pending, with public delegation still on Name.com. The registrar was independently confirmed as **Name.com, Inc.** through public RDAP. Actual Pages hostname and release status will be recorded after provisioning; no example hostname should be treated as a live deployment.
+Cloudflare: existing owner account verified by Wrangler. The domain has a **Free Website** zone. At initial inspection it was pending, with public delegation still on Name.com. The registrar was independently confirmed as **Name.com, Inc.** through public RDAP. Initial source revision: `b37ed116bdd66790e29b80f7f802b961510a3bba`; [GitHub Actions run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) passed. Git-integrated Pages creation returned HTTP 401 / Cloudflare code `8000011`: an internal issue with the Git installation. The request created no project. Owner-operated app authorization/repair is pending; no Pages hostname is claimed.
 
 ## Intended Pages Git configuration
 
@@ -33,6 +33,8 @@ Observed Cloudflare-assigned nameservers:
 
 - `rommy.ns.cloudflare.com`
 - `susan.ns.cloudflare.com`
+
+The owner subsequently saved the assigned nameservers at Name.com. Public DNS now returns both Cloudflare nameservers, while Cloudflare still reports the zone pending at the latest check. The apex A record still returns an existing parking address, not this portfolio. This is not a deployment success.
 
 Original public nameservers observed before migration:
 

@@ -29,7 +29,7 @@ export default function Home() {
             From raw data
             <br />
             to useful
-            <br />
+            <br />{" "}
             <span className={styles.heroAccent}>
               AI systems<span>.</span>
             </span>

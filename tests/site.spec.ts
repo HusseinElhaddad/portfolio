@@ -295,3 +295,16 @@ test("all demos work without external network requests", async ({ page }) => {
   }
   expect(external).toEqual([]);
 });
+
+test("exported pages produce no browser errors", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") errors.push(msg.text());
+  });
+  for (const path of paths) {
+    await page.goto(path);
+    await expect(page.locator("h1")).toBeVisible();
+  }
+  expect(errors).toEqual([]);
+});

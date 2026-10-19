@@ -1,7 +1,7 @@
 This package was debianized by Florent Rougon <f.rougon@free.fr> on
 Tue, 27 Jan 2004 20:12:21 +0100.
 
-The following TeX Live packages were downloaded from 
+The following TeX Live packages were downloaded from
     http://www.ctan.org/tex-archive/systems/texlive/tlnet/archive/
 and merged into one orig.tar.gz file:
     lm.tar.xz
@@ -21,7 +21,7 @@ The upstream README-Latin-Modern.txt file says:
   Version: 2.005
   Date: 21 III 2021
   Downloads: http://www.gust.org.pl/projects/e-foundry/latin-modern/
-  License: 
+  License:
     % Copyright 2003--2021 by B. Jackowski and J.M. Nowacki
     % (on behalf of TeX Users Groups).
     % This work is released under the GUST Font License
@@ -61,7 +61,7 @@ License:
 
 See the appendix B for the GUST Font License.
 
-Please read the appendix A below if you want to examine the licensing terms 
+Please read the appendix A below if you want to examine the licensing terms
 for the Computer Modern fonts in Type 1 format on which the Latin Modern fonts
 are based.
 

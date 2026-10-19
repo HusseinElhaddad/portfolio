@@ -6,7 +6,11 @@ if (new URL(origin).protocol !== "https:" || new URL(origin).pathname !== "/")
   throw new Error("Canonical origin must be an HTTPS origin without a path.");
 const preview =
   !!process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== "main";
-await writeFile("out/_headers", (await readFile("public/_headers", "utf8")) + (preview ? "\n/*\n  X-Robots-Tag: noindex, nofollow\n" : ""));
+await writeFile(
+  "out/_headers",
+  (await readFile("public/_headers", "utf8")) +
+    (preview ? "\n/*\n  X-Robots-Tag: noindex, nofollow\n" : ""),
+);
 let revision = process.env.CF_PAGES_COMMIT_SHA || null;
 if (!revision) {
   try {
