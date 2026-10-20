@@ -6,7 +6,7 @@ import { ContactCTA } from "@/components/layout/Footer";
 import styles from "./work.module.css";
 export const metadata = pageMeta(
   "Selected work",
-  "Explore Olist data pipelines, FPL-Intel RAG integration, and Sawakli analytical foundations, plus So3ratk, Trip Planner, and a Titanic classification learning prototype.",
+  "Explore Olist, FPL-Intel, and Sawakli case studies, plus So3ratk, Trip Planner, a Titanic classification learning prototype, and Football ETL.",
   "/work/",
   "work",
 );
@@ -91,13 +91,19 @@ export default function Work() {
                   ))}
                 </ul>
                 <p className={styles.scope}>{project.note}</p>
-                <a
-                  href={project.repository}
-                  className="text-link"
-                  aria-label={`${project.name} ${project.repositoryLabel.toLowerCase()}`}
-                >
-                  {project.repositoryLabel} <span aria-hidden="true">↗</span>
-                </a>
+                {project.repository ? (
+                  <a
+                    href={project.repository}
+                    className="text-link"
+                    aria-label={`${project.name} ${project.repositoryLabel.toLowerCase()}`}
+                  >
+                    {project.repositoryLabel} <span aria-hidden="true">↗</span>
+                  </a>
+                ) : (
+                  <p className={styles.sourceAvailability}>
+                    {project.repositoryLabel}
+                  </p>
+                )}
               </article>
             ))}
           </div>

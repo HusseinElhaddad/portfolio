@@ -86,8 +86,16 @@
   line-height: 1.7;
   margin-bottom: 24px;
 }
-.moreCard > a {
+.moreCard > a,
+.moreCard > .sourceAvailability {
   margin-top: auto;
+}
+.moreCard > .sourceAvailability {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  font-size: 13px;
 }
 @media (max-width: 900px) {
   .project {

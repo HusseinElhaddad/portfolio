@@ -94,14 +94,14 @@ Scope: only Work layout/content, shared typed project content, README editing gu
 
 Focused screenshots, keyboard observations, link responses and build/browser logs are retained locally under gitignored `qa/work-collection*`. Long element captures can include an offscreen fixed skip-link artifact; actual viewport rendering was separately inspected and its unfocused bounding box confirmed entirely above the viewport. No site issue or hidden test failure was suppressed. Exact-head CI, Pages preview and production checks are recorded in the expansion PR and release handover.
 
-### Titanic follow-up — 20 October 2026
+### Confirmed contribution updates — 20 October 2026
 
-Owner confirmed full implementation, resolving the contribution question. Added an educational Titanic card, a verified public repository link and per-entry repository labels; preserved explicit team labels on So3ratk and Trip Planner. No original model job, source-project change or unverified hosted-demo claim.
+Owner confirmed full Titanic implementation and end-to-end Atos Football ETL implementation, and clarified that orchestration/NLU work referred to FPL-Intel. Added two educational/internship cards and updated FPL's role/architecture copy while preserving teammate credit and all featured URLs. Football ETL has a noninteractive “No public source link” label, explicitly approved by the owner; no source files were published. Per-entry repository labels preserve existing team labels.
 
-- PASS — lint, strict types and production static export.
-- PASS — **five affected existing browser checks, 15.8s**: Work metadata/links/both-theme accessibility, all-route six-width reflow, mobile/reduced-motion accessibility, no-JavaScript essential content and browser errors.
-- PASS — **12 focused width/theme combinations**: card screenshots, no horizontal overflow, forward/reverse tab order into the Titanic repository link and visible focus. Actual desktop/mobile renders were inspected.
-- PASS — public repository HTTP 200 and GitHub API verification. Current public training-source blob matches the inspected snapshot; the known evaluation limits still apply.
-- NOT RUN — source-project training/evaluation, inference/deployment checks, new Lighthouse or assistive-device audit. No new result claims depend on them. Existing CI runs the full suite before merge; deployed release evidence is recorded in the follow-up PR.
+- PASS — lint, strict types, existing logic checks and production static export.
+- PASS — **all 21 existing browser tests, 25.2s**, including all-route links/metadata, both-theme accessibility, six-width reflow, mobile/reduced-motion accessibility, keyboard navigation, no-JavaScript content, demos and browser errors.
+- PASS — **12 focused width/theme combinations**: Titanic/Football screenshots, no overflow, visible repository-link focus and forward/reverse tab order. The Football card has no link or focusable fake CTA. Actual desktop/mobile renders were inspected.
+- PASS — Titanic public repository HTTP 200 and API verification. Public training-source blob matches the inspected snapshot; known evaluation limits remain. FPL runtime source matches public dev blobs and confirms keyword-based intent routing.
+- NOT RUN — original project jobs/training/evaluation, live inference/database checks, new Lighthouse or assistive-device audit. No new result claims depend on these checks. Exact-head CI, live preview and production evidence are recorded in the follow-up PR.
 
-Local artifacts: gitignored `qa/titanic-*`. ArabiQ, Football ETL and TechStore remain unpublished; subsequent contribution statements require matching the correct project/source before publication.
+Local artifacts: gitignored `qa/contribution-*` and earlier `qa/titanic-*`. Only ArabiQ and TechStore remain unpublished candidates; no exclusion or private-source boundary changed.

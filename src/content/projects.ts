@@ -32,8 +32,8 @@ export const projects: Project[] = [
     field: "Contextual intelligence",
     title: "Give the numbers their context.",
     summary:
-      "A team-built football assistant combining player scoring with retrieved news. My focus: RAG, application integration, and deployment.",
-    role: "Team lead · RAG & integration · 6 people",
+      "A team-built football assistant combining player scoring with retrieved news. My focus: RAG, orchestration, rule-based NLU, integration, and deployment.",
+    role: "Team lead · RAG, orchestration & NLU · 6 people",
     status: "University team project",
     stack: ["Python", "Chroma", "XGBoost", "Streamlit"],
     accent: "teal",
@@ -64,8 +64,8 @@ export type SupportingProject = {
   status: string;
   stack: string[];
   note: string;
-  repository: string;
-  repositoryLabel: "Team repository" | "Repository";
+  repository: string | null;
+  repositoryLabel: "Team repository" | "Repository" | "No public source link";
 };
 
 export const moreProjects: SupportingProject[] = [
@@ -111,5 +111,19 @@ export const moreProjects: SupportingProject[] = [
     repository:
       "https://github.com/HusseinElhaddad/Titanic-Classification-DEPI-Mini-Project",
     repositoryLabel: "Repository",
+  },
+  {
+    slug: "football-etl",
+    name: "Football ETL",
+    context: "Data engineering / Atos internship",
+    problem:
+      "Turn related football workbook tables into validated MySQL data and traceable player-performance reporting.",
+    contribution:
+      "I built the extraction, validation, transformation, orchestration, database loading, and reporting workflow end to end.",
+    status: "Implemented internship exercise",
+    stack: ["Python", "pandas", "MySQL", "SQLAlchemy", "pytest"],
+    note: "Staged upserts use per-table transactions. Historical reconciliation found legacy invalid rows; the current database state is unverified.",
+    repository: null,
+    repositoryLabel: "No public source link",
   },
 ];

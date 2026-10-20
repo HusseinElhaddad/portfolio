@@ -8,7 +8,7 @@ import {
 import { FplDemo } from "@/components/demos/Demos";
 export const metadata = pageMeta(
   "FPL-Intel — contextual AI integration",
-  "Team-built Fantasy Premier League analytics. Hussein led six members, implemented RAG, integrated the app, and deployed Streamlit. Honest evaluation of a constructed scoring target.",
+  "Team-built FPL analytics. Hussein led six members and worked on RAG, orchestration, rule-based NLU, integration, and Streamlit deployment. Constructed-target evaluation explained.",
   "/work/fpl-intel/",
   "fpl-intel",
 );
@@ -44,16 +44,18 @@ export default function Fpl() {
         <p>
           I led the team,{" "}
           <strong>
-            implemented the RAG component, integrated the application, and
-            deployed the Streamlit app
+            implemented the RAG component, worked on orchestration and NLU,
+            integrated the application, and deployed the Streamlit app
           </strong>
           . Source history also supports deployment fixes, scoring-target
           redesign, advice logic, and documentation.
         </p>
         <p>
           The ingestion, feature engineering, model, and interface work belong
-          to the wider team system. My central technical story is how retrieval
-          and application integration connect those components.
+          to the wider team system. The project also credits Ahmed Elsadek for
+          NLU optimization and intent routing. My contribution connects
+          retrieval, query routing, and application orchestration within that
+          shared system.
         </p>
       </CaseSection>
       <CaseSection
@@ -72,8 +74,9 @@ export default function Fpl() {
           note="Team stack: Python / pandas / NumPy / scikit-learn / XGBoost / SQLite / Streamlit / Plotly / ChromaDB / LangChain integrations. Inspected generation configuration: llama-3.3-70b-versatile."
         />
         <p>
-          The runtime router uses explicit rules. Calling the application an
-          autonomous agent would overstate how requests are dispatched.
+          The runtime NLU uses keyword rules to classify a query as ML, RAG, or
+          both. The orchestrator dispatches to player scoring, news retrieval,
+          or the two together. This path does not use a trained intent model.
         </p>
       </CaseSection>
       <CaseSection
