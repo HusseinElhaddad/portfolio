@@ -65,6 +65,7 @@ export type SupportingProject = {
   stack: string[];
   note: string;
   repository: string;
+  repositoryLabel: "Team repository" | "Repository";
 };
 
 export const moreProjects: SupportingProject[] = [
@@ -80,6 +81,7 @@ export const moreProjects: SupportingProject[] = [
     stack: ["HTML", "CSS", "JavaScript", "YOLOv8", "Inference API"],
     note: "Model training and API work belong to the team. Live inference is unverified; this is food detection, not calorie estimation.",
     repository: "https://github.com/MoBahgat010/So3ratk",
+    repositoryLabel: "Team repository",
   },
   {
     slug: "trip-planner",
@@ -93,5 +95,21 @@ export const moreProjects: SupportingProject[] = [
     stack: ["Java", "Swing", "FlatLaf", "Maven", "CSV"],
     note: "The application was built by the team. Data persists through CSV export, using a basic parser.",
     repository: "https://github.com/Abdelrahman2542/Trip---Planner",
+    repositoryLabel: "Team repository",
+  },
+  {
+    slug: "titanic",
+    name: "Titanic Survival Classification",
+    context: "Applied ML / DEPI mini project",
+    problem:
+      "Explore passenger-survival classification using historical Titanic data, comparing Logistic Regression and Decision Tree models.",
+    contribution:
+      "I built the preprocessing, feature engineering, model comparison and export workflow, and the inference interface.",
+    status: "Implemented learning prototype",
+    stack: ["Python", "pandas", "scikit-learn", "LightGBM", "Gradio"],
+    note: "Evaluation needs revision: target leakage and inconsistent age scaling limit the saved results. No validated accuracy or live demo is claimed.",
+    repository:
+      "https://github.com/HusseinElhaddad/Titanic-Classification-DEPI-Mini-Project",
+    repositoryLabel: "Repository",
   },
 ];

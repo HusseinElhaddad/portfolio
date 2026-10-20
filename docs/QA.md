@@ -93,3 +93,15 @@ Scope: only Work layout/content, shared typed project content, README editing gu
 | Lighthouse remeasurement | NOT RUN | No performance claim added for this small static collection change. Prior release measurements above retain their original URL/revision/date context. |
 
 Focused screenshots, keyboard observations, link responses and build/browser logs are retained locally under gitignored `qa/work-collection*`. Long element captures can include an offscreen fixed skip-link artifact; actual viewport rendering was separately inspected and its unfocused bounding box confirmed entirely above the viewport. No site issue or hidden test failure was suppressed. Exact-head CI, Pages preview and production checks are recorded in the expansion PR and release handover.
+
+### Titanic follow-up — 20 October 2026
+
+Owner confirmed full implementation, resolving the contribution question. Added an educational Titanic card, a verified public repository link and per-entry repository labels; preserved explicit team labels on So3ratk and Trip Planner. No original model job, source-project change or unverified hosted-demo claim.
+
+- PASS — lint, strict types and production static export.
+- PASS — **five affected existing browser checks, 15.8s**: Work metadata/links/both-theme accessibility, all-route six-width reflow, mobile/reduced-motion accessibility, no-JavaScript essential content and browser errors.
+- PASS — **12 focused width/theme combinations**: card screenshots, no horizontal overflow, forward/reverse tab order into the Titanic repository link and visible focus. Actual desktop/mobile renders were inspected.
+- PASS — public repository HTTP 200 and GitHub API verification. Current public training-source blob matches the inspected snapshot; the known evaluation limits still apply.
+- NOT RUN — source-project training/evaluation, inference/deployment checks, new Lighthouse or assistive-device audit. No new result claims depend on them. Existing CI runs the full suite before merge; deployed release evidence is recorded in the follow-up PR.
+
+Local artifacts: gitignored `qa/titanic-*`. ArabiQ, Football ETL and TechStore remain unpublished; subsequent contribution statements require matching the correct project/source before publication.

@@ -38,3 +38,5 @@ No screen-reader session, physical device audit or field-performance measurement
 - [x] Pass lint/types/logic/export and all 21 existing browser checks; inspect six widths in both themes and keyboard/link behavior.
 
 Release uses the established branch → checked Pages preview/PR → main Git deployment workflow. Exact release/check/deployment evidence is retained in the expansion PR and final handover; the [expansion QA section](QA.md#work-collection-expansion--20-october-2026) records the executed local checks.
+
+Titanic follow-up: owner confirmed full implementation. Added the educational card, preserved evaluation caveats and verified its public repository. Lint/types/export, five affected browser checks and 12 focused width/theme/keyboard checks pass. Three other candidates remain unpublished pending project-specific clarification. Follow the same checked PR/preview/main deployment workflow.
