@@ -30,7 +30,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-To use an installed Chrome for tests, set `CHROME_PATH=/path/to/google-chrome`. Tests start the exported preview automatically. Build before browser checks. Full-page screenshots can be produced while the preview is running with `node scripts/screenshots.mjs`; generated QA artifacts remain gitignored.
+To use an installed Chrome for tests, set `CHROME_PATH=/path/to/google-chrome`. Tests start the exported preview automatically. Build before local browser checks. Set `BASE_URL=https://husseinelhaddad.pages.dev` (or the custom origin) to run the same suite against a deployed host without starting a local server. Full-page screenshots can be produced while the preview is running with `node scripts/screenshots.mjs`; generated QA artifacts remain gitignored.
 
 ## Structure and editing
 
@@ -46,7 +46,7 @@ To use an installed Chrome for tests, set `CHROME_PATH=/path/to/google-chrome`. 
 | `src/components/demos/`     | Three browser-only demonstrations and their text/table equivalents                                               |
 | `src/components/projects/`  | Authored SVG visuals and reusable case study layout                                                              |
 | `src/styles/globals.css`    | Semantic light/dark tokens, local fonts, global typography, focus and reduced motion                             |
-| `public/`                   | Public CV, social previews, icons, fonts/licenses and Pages headers/redirects                                    |
+| `public/`                   | Public CV, social previews, icons, fonts/licenses and Pages headers; the host redirect is a Cloudflare zone rule |
 | `scripts/`                  | Static preview, media generation and export finalization                                                         |
 | `tests/`                    | Stateful logic and production-export browser/a11y/reflow checks                                                  |
 | `docs/`                     | Content evidence, implementation checklist, QA, hosting and domain transition                                    |

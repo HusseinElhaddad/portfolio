@@ -1,0 +1,20 @@
+{
+  "zone": "husseinelhaddad.dev",
+  "phase": "http_request_dynamic_redirect",
+  "rule": {
+    "ref": "www_to_apex",
+    "description": "Redirect www to canonical apex",
+    "expression": "(http.host eq \"www.husseinelhaddad.dev\")",
+    "action": "redirect",
+    "action_parameters": {
+      "from_value": {
+        "status_code": 301,
+        "target_url": {
+          "expression": "concat(\"https://husseinelhaddad.dev\", http.request.uri.path)"
+        },
+        "preserve_query_string": true
+      }
+    },
+    "enabled": true
+  }
+}

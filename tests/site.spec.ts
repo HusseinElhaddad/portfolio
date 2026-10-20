@@ -162,6 +162,7 @@ test("theme persists, system follows media, storage failure still renders", asyn
 });
 test("mobile menu keyboard, Escape, navigation, back and forward", async ({
   page,
+  baseURL,
 }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
@@ -182,7 +183,7 @@ test("mobile menu keyboard, Escape, navigation, back and forward", async ({
   await page.getByRole("link", { name: "About", exact: true }).click();
   await expect(page).toHaveURL(/\/about\/$/);
   await page.goBack();
-  await expect(page).toHaveURL(/4173\/$/);
+  await expect(page).toHaveURL(new URL("/", baseURL).href);
   await page.goForward();
   await expect(page).toHaveURL(/\/about\/$/);
 });
@@ -212,6 +213,7 @@ test("missing path returns an actual 404 and sitemap is canonical", async ({
 });
 test("reduced motion and no JavaScript preserve essential information", async ({
   browser,
+  baseURL,
 }) => {
   const context = await browser.newContext({
     javaScriptEnabled: false,
@@ -219,7 +221,7 @@ test("reduced motion and no JavaScript preserve essential information", async ({
   });
   const page = await context.newPage();
   for (const path of paths) {
-    await page.goto(`http://127.0.0.1:4173${path}`);
+    await page.goto(new URL(path, baseURL).href);
     await expect(page.locator("h1")).toBeVisible();
   }
   await context.close();
@@ -281,10 +283,13 @@ test("mobile routes remain accessible in both themes and reduced motion", async 
   }
 });
 
-test("all demos work without external network requests", async ({ page }) => {
+test("all demos work without external network requests", async ({
+  page,
+  baseURL,
+}) => {
   const external: string[] = [];
   page.on("request", (request) => {
-    if (!request.url().startsWith("http://127.0.0.1:4173"))
+    if (new URL(request.url()).origin !== new URL(baseURL!).origin)
       external.push(request.url());
   });
   for (const path of [

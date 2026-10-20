@@ -33,4 +33,4 @@ Initial release pushed: `b37ed116bdd66790e29b80f7f802b961510a3bba`. GitHub Actio
 
 Owner saved the assigned Cloudflare nameservers at Name.com. Public DNS now returns both correct nameservers; Cloudflare zone activation is still pending at the latest check. Apex A still resolves to an existing parking address; do not replace unknown records blindly. DNS access remains owner-operated because the Wrangler session lacks record permissions.
 
-Git installation repaired by owner. Git-connected Pages project created successfully as `husseinelhaddad`, assigned `https://husseinelhaddad.pages.dev`. Zone is now active. Build and HTTPS verification are underway.
+Git installation repaired by owner. Git-connected Pages project created successfully as `husseinelhaddad`, assigned `https://husseinelhaddad.pages.dev`. Zone and both custom domains are active; TLS/hostname checks pass. Automatic Git preview and its noindex behavior verified. Full 21-test suite passed on that preview. Remaining: production merge/Git-trigger verification, deployed Lighthouse, final www redirect and handover results.

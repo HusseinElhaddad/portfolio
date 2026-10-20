@@ -94,3 +94,16 @@ PASS — owner repaired Git installation and public delegation; Cloudflare Free 
 FAIL — custom hosts currently return 525 from the previous origin. Pages reports “CNAME record not set” for both. Exact DNS records and Always Use HTTPS action were supplied to the owner; the current Wrangler session lacks DNS edit permissions. No TLS verification was disabled.
 
 The shared-origin/owner-inclusive-title metadata revision passed lint, strict types, export, and all seven affected route accessibility/metadata checks after the ESM import fix.
+
+## Live verification — 20 October 2026
+
+PASS — apex and www Pages domain associations both report active. Normal certificate-chain and hostname validation succeeds on apex, www and the production free host, all using TLS 1.3. Observed certificate expiries: apex 18 January 2027, www 18 January 2027, free host 17 January 2027 (provider-managed certificates, not domain registration expiry).
+
+PASS — HTTPS apex case study returns 200 with CSP, frame, MIME, referrer, permissions and HTML-revalidation headers. HTTP apex and HTTP www return 301 to the corresponding HTTPS URL, preserving `/work/olist/?source=verification`. No certificate validation was bypassed.
+
+FAIL (being repaired) — HTTPS www still returns 200. The initial domain-level `_redirects` rule was unsupported and ignored by Pages. Official Pages documentation confirms source domains are not supported. That file was removed. A proper free zone Single Redirect, restricted to www, is documented in `docs/CLOUDFLARE_RULES.json`. The session lacks Rulesets access (403); exact owner UI action requested.
+
+PASS — automatic preview `cc1a695d-88a5-4fbe-8d29-f581f4554afa` completed from **github:push** revision `bc3129cbc9c28faac7ef4423392dcb2c82150443`, with no Functions. Verified preview origin **https://cc1a695d.husseinelhaddad.pages.dev** and provider alias **https://release-hosting-verification.husseinelhaddad.pages.dev**. `/build-info.json` matches the revision, marks preview true, and responses include `X-Robots-Tag: noindex, nofollow`. GitHub Actions and Cloudflare Pages checks on PR #1 both pass.
+
+
+PASS — the full **21-test suite passed against the actual preview** on 20 October 2026 (42.6s), including 84 route/width/theme reflow combinations, accessibility in both themes, all interactions, no-JavaScript content and no browser errors. `BASE_URL` now makes the same suite reusable against deployed hosts without starting a local server; three URL-dependent harness checks passed locally after that change.
