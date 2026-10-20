@@ -1,3 +1,4 @@
+import origins from "../src/content/origins.json" with { type: "json" };
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const paths = [
@@ -16,12 +17,13 @@ for (const path of paths) {
   }) => {
     const response = await page.goto(path);
     expect(response?.status()).toBe(200);
+    await expect(page).toHaveTitle(/Hussein Elhaddad/);
     await page.locator("body").evaluate(() => document.fonts.ready);
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator("main")).toHaveCount(1);
     await expect(page.locator("link[rel=canonical]")).toHaveAttribute(
       "href",
-      `https://husseinelhaddad.dev${path}`,
+      `${origins.canonicalOrigin}${path}`,
     );
     const image = await page
       .locator('meta[property="og:image"]')
@@ -160,6 +162,7 @@ test("theme persists, system follows media, storage failure still renders", asyn
 });
 test("mobile menu keyboard, Escape, navigation, back and forward", async ({
   page,
+  baseURL,
 }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
@@ -180,7 +183,7 @@ test("mobile menu keyboard, Escape, navigation, back and forward", async ({
   await page.getByRole("link", { name: "About", exact: true }).click();
   await expect(page).toHaveURL(/\/about\/$/);
   await page.goBack();
-  await expect(page).toHaveURL(/4173\/$/);
+  await expect(page).toHaveURL(new URL("/", baseURL).href);
   await page.goForward();
   await expect(page).toHaveURL(/\/about\/$/);
 });
@@ -206,10 +209,11 @@ test("missing path returns an actual 404 and sitemap is canonical", async ({
   expect(await response.text()).toContain("Signal not found");
   const sitemap = await request.get("/sitemap.xml");
   for (const p of paths)
-    expect(await sitemap.text()).toContain(`https://husseinelhaddad.dev${p}`);
+    expect(await sitemap.text()).toContain(`${origins.canonicalOrigin}${p}`);
 });
 test("reduced motion and no JavaScript preserve essential information", async ({
   browser,
+  baseURL,
 }) => {
   const context = await browser.newContext({
     javaScriptEnabled: false,
@@ -217,7 +221,7 @@ test("reduced motion and no JavaScript preserve essential information", async ({
   });
   const page = await context.newPage();
   for (const path of paths) {
-    await page.goto(`http://127.0.0.1:4173${path}`);
+    await page.goto(new URL(path, baseURL).href);
     await expect(page.locator("h1")).toBeVisible();
   }
   await context.close();
@@ -279,10 +283,13 @@ test("mobile routes remain accessible in both themes and reduced motion", async 
   }
 });
 
-test("all demos work without external network requests", async ({ page }) => {
+test("all demos work without external network requests", async ({
+  page,
+  baseURL,
+}) => {
   const external: string[] = [];
   page.on("request", (request) => {
-    if (!request.url().startsWith("http://127.0.0.1:4173"))
+    if (new URL(request.url()).origin !== new URL(baseURL!).origin)
       external.push(request.url());
   });
   for (const path of [
@@ -294,4 +301,17 @@ test("all demos work without external network requests", async ({ page }) => {
     await page.getByRole("button", { name: "Reset example" }).click();
   }
   expect(external).toEqual([]);
+});
+
+test("exported pages produce no browser errors", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") errors.push(msg.text());
+  });
+  for (const path of paths) {
+    await page.goto(path);
+    await expect(page.locator("h1")).toBeVisible();
+  }
+  expect(errors).toEqual([]);
 });

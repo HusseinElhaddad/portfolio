@@ -1,3 +1,4 @@
+import origins from "./origins.json";
 export const site = {
   name: "Hussein Elhaddad",
   fullName: "Hussein Mohamed Elhaddad",
@@ -5,9 +6,9 @@ export const site = {
   email: "hussein.elhaddad@outlook.com",
   github: "https://github.com/HusseinElhaddad",
   linkedin: "https://www.linkedin.com/in/husseinelhaddad/",
-  origin: process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://husseinelhaddad.dev",
-  // Set only after Cloudflare has assigned and verified the actual hostname.
-  freeOrigin: process.env.NEXT_PUBLIC_FREE_ORIGIN || null,
+  origin: process.env.NEXT_PUBLIC_SITE_ORIGIN || origins.canonicalOrigin,
+  // Assigned to the Git-connected Cloudflare Pages project.
+  freeOrigin: process.env.NEXT_PUBLIC_FREE_ORIGIN || origins.freeOrigin,
   cv: "/Hussein_Elhaddad_AI_Engineer_CV.pdf",
 } as const;
 export const routes = [
@@ -25,12 +26,13 @@ export function pageMeta(
   path: string,
   image = "home",
 ) {
+  const fullTitle = `${title} | ${site.name}`;
   return {
-    title,
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: `${site.origin}${path}` },
     openGraph: {
-      title,
+      title: fullTitle,
       description,
       url: `${site.origin}${path}`,
       type: "website" as const,
@@ -46,7 +48,7 @@ export function pageMeta(
     },
     twitter: {
       card: "summary_large_image" as const,
-      title,
+      title: fullTitle,
       description,
       images: [`${site.origin}/social/${image}.png`],
     },

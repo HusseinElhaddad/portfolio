@@ -10,7 +10,7 @@ Specification snapshot: 19 October 2026. Owner: Hussein Elhaddad. Concept: Signa
 - [x] Implement accessible synthetic/local demos, system/light/dark, menu and reduced motion.
 - [x] Inspect screenshots at all specified widths/themes; repair issues.
 - [x] Clean install, lint, types, logic/browser tests, export, accessibility, links and Lighthouse.
-- [ ] Commit and push validated portfolio source.
+- [x] Commit and push validated portfolio source.
 - [ ] Cloudflare Pages Git integration, verified actual free hostname, subsequent Git deployment.
 - [ ] Custom domain/DNS/HTTPS/redirects, preview indexing and real host 404 checks.
 - [ ] Editing, deployment/rollback, QA, content evidence and 2027 transition handover.
@@ -26,3 +26,11 @@ No paid infrastructure, APIs, analytics, source project mutations, private Olist
 ## Verified local release
 
 Clean install/audit, lint, strict types, four logic tests, 20 Chromium browser checks and production export pass. Mobile Lighthouse: Home 97/100/100/100; representative Olist case recorded in QA. All route/theme/width sweeps pass. CV reconciled, rendered and reviewed. Live infrastructure checks remain separate.
+
+## Infrastructure progress
+
+Initial release pushed: `b37ed116bdd66790e29b80f7f802b961510a3bba`. GitHub Actions run `39321605155` passed every step. Wrangler OAuth/account and existing Free zone verified. Git-connected Pages creation returned Cloudflare error `8000011` (Git installation issue); owner authorization/repair requested. No Pages project was created by the failed request and no free hostname is claimed.
+
+Owner saved the assigned Cloudflare nameservers at Name.com. Public DNS now returns both correct nameservers; Cloudflare zone activation is still pending at the latest check. Apex A still resolves to an existing parking address; do not replace unknown records blindly. DNS access remains owner-operated because the Wrangler session lacks record permissions.
+
+Git installation repaired by owner. Git-connected Pages project created successfully as `husseinelhaddad`, assigned `https://husseinelhaddad.pages.dev`. Zone and both custom domains are active; TLS/hostname checks pass. Automatic Git preview and its noindex behavior verified. Full 21-test suite passed on that preview. Remaining: production merge/Git-trigger verification, deployed Lighthouse, final www redirect and handover results.

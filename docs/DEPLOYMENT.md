@@ -4,20 +4,24 @@
 
 GitHub: `https://github.com/HusseinElhaddad/portfolio`, public, `main`. The repository was empty at initial inspection. No repository rulesets were returned; the owner authorized a validated initial main release for this case. GitHub CLI login and Wrangler OAuth were verified. No credential is stored in this repository.
 
-Cloudflare: existing owner account verified by Wrangler. The domain has a **Free Website** zone. At initial inspection it was pending, with public delegation still on Name.com. The registrar was independently confirmed as **Name.com, Inc.** through public RDAP. Actual Pages hostname and release status will be recorded after provisioning; no example hostname should be treated as a live deployment.
+Cloudflare: Git-connected Pages project **`husseinelhaddad`**, assigned free production origin **https://husseinelhaddad.pages.dev**. Owner repaired the GitHub integration after the initial `8000011` error. Both production and preview build environments use the pinned Node version and actual free origin. No runtime Functions or paid resources were configured.
 
-## Intended Pages Git configuration
+The domain has an **active Free Website** zone. The owner saved the assigned Cloudflare nameservers at Name.com; public delegation reflects them. Both domains are associated with Pages. The free production origin is live and verified; the owner saved both proxied CNAME records and enabled Always Use HTTPS. Both Pages domains now report active, and standard TLS validation succeeds. The www-to-apex redirect still requires the zone Single Redirect described below. The earlier parking A record is not evidence of a portfolio deployment.
 
-Create a **Pages** Git-integrated project, not a runtime Worker or a direct-upload-only project:
+Initial source revision: `b37ed116bdd66790e29b80f7f802b961510a3bba`; [GitHub Actions run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) passed. First Pages deployment `129fbb22-3d47-4727-860b-f14ba37fe52a` completed successfully from Git main through the API (ad hoc trigger), with no Functions. The actual free host returns 200 for required pages and 404 for a missing path over valid HTTPS. Automatic preview and subsequent production Git-trigger verification are tracked in `docs/QA.md`.
+
+## Pages Git configuration
+
+Configured as a **Pages** Git-integrated project:
 
 - Repository: only `HusseinElhaddad/portfolio` where selectable.
-- Project name: prefer `husseinelhaddad`, subject to actual availability.
+- Project name: `husseinelhaddad`.
 - Production branch: `main`.
 - Build command: `npm run build`.
 - Output directory: `out`; root: repository root.
 - Node: `24.22.0`; `NODE_VERSION=24.22.0`.
 - `NEXT_PUBLIC_SITE_ORIGIN=https://husseinelhaddad.dev`.
-- Set `NEXT_PUBLIC_FREE_ORIGIN` to the actual assigned `https://…pages.dev` origin after verification.
+- `NEXT_PUBLIC_FREE_ORIGIN=https://husseinelhaddad.pages.dev`.
 - Preview branch deployments enabled. `CF_PAGES_BRANCH` drives the build's noindex header on non-main builds; Cloudflare also supplies preview indexing restrictions.
 - No Functions, bindings, paid services, Web Analytics or Zaraz.
 
@@ -33,6 +37,8 @@ Observed Cloudflare-assigned nameservers:
 
 - `rommy.ns.cloudflare.com`
 - `susan.ns.cloudflare.com`
+
+The owner subsequently saved the assigned nameservers at Name.com. Public DNS now returns both Cloudflare nameservers and Cloudflare reports the zone active. The owner subsequently replaced the website records with the real Pages target. Both hosts now serve this portfolio over valid HTTPS.
 
 Original public nameservers observed before migration:
 
@@ -51,7 +57,7 @@ After the real free Pages address works:
 4. Review the Pages-created apex/www CNAME records. Preserve MX/TXT and unrelated records. Cloudflare handles apex flattening.
 5. Keep hosting TLS free. Do not buy/install a registrar SSL certificate. Verify both hosts have valid HTTPS.
 6. Enable the zone's **Always Use HTTPS** where needed, then verify HTTP requests redirect without loops.
-7. `public/_redirects` is host-specific: `www` → apex with the matching path. Pages should preserve query strings; verify on the real host.
+7. Configure a **zone Single Redirect** for `http.host eq "www.husseinelhaddad.dev"`: dynamic target `concat("https://husseinelhaddad.dev", http.request.uri.path)`, status 301, preserve query string. Pages `_redirects` does **not** support domain-level sources. The incorrect initial file was removed after live testing showed it ignored. Safe intended rule configuration is in `docs/CLOUDFLARE_RULES.json`; preserve any unrelated zone rules.
 8. The production `pages.dev` host must stay accessible. Never apply a global free-host-to-custom-domain redirect.
 
 Configuration files are not proof of live behavior. Release QA must explicitly check resolution, TLS, path/query redirects, direct nested routes, CV/fonts/media, sitemap, robots, canonical tags and actual missing-path status.
@@ -81,3 +87,9 @@ Cloudflare Pages → project → **Deployments** → choose a previously success
 Official Pages limits rechecked 19 October 2026: 500 builds/month, one concurrent build, 20,000 files, 25 MiB per file. This small static export fits these limits. Static asset requests are free under current terms; no inference, paid API, Worker, Function or R2 dependency exists. Student benefits are unnecessary. Review current terms before future architectural changes; free service is not guaranteed forever.
 
 Official references: [static Next.js](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/), [Git integration](https://developers.cloudflare.com/pages/configuration/git-integration/), [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/), [preview indexing](https://developers.cloudflare.com/pages/configuration/preview-deployments/), [limits](https://developers.cloudflare.com/pages/platform/limits/), [pricing](https://developers.cloudflare.com/pages/functions/pricing/), [rollback](https://developers.cloudflare.com/pages/configuration/rollbacks/).
+
+### Verified DNS and TLS; remaining host redirect
+
+On 20 October 2026, both Pages domain associations report active. Owner-saved proxied CNAME records point apex and www to `husseinelhaddad.pages.dev`; Always Use HTTPS is enabled. Standard Python TLS verification succeeds for apex, www and the free origin (TLS 1.3, matching hostname certificates). HTTP redirects preserve the tested path/query.
+
+The www host still serves 200 until the owner deploys the Single Redirect above. The current Wrangler OAuth session returns 403 for the Rulesets entrypoint and cannot configure this rule. Owner-operated UI steps were supplied. This is a narrow, hostname-specific rule; no redirect applies to the free Pages production address. Never replace a whole existing zone ruleset with the one-rule documentation example.

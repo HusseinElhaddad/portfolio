@@ -15,20 +15,20 @@ Next's detached TypeScript process returned empty stdout inside the restrictive 
 
 ## Commands and results
 
-| Check | Result | Evidence |
-| --- | --- | --- |
-| `npm ci` | PASS | Clean lockfile install; 242 packages added, 243 audited, zero vulnerabilities. |
-| `npm run lint` | PASS | Supported flat-config ESLint invocation, no errors. |
-| `npm run typecheck` | PASS | Strict `tsc --noEmit`. |
-| `npm test` | PASS | Four behavioral tests: unchanged/changed history, reset purity, missing denominators/valid zero, invalid theme fallback. |
-| `npm run build` | PASS | All seven required routes, robots, sitemap and real root 404 exported. No runtime server or Functions required. |
-| `npm run test:e2e` with `CHROME_PATH=/usr/bin/google-chrome` | PASS | 20 tests; 25.9s in recorded expanded run. |
-| Preview indexing finalization | PASS | Simulated non-main branch emits `X-Robots-Tag: noindex, nofollow`; main restores production headers. Live preview host remains a separate check. |
-| Internal links, CV and social assets | PASS | Every page's root-relative links return 200; PDF starts with genuine `%PDF`; each social asset resolves. |
-| Canonicals/sitemap | PASS | Every required route points to its absolute approved custom origin; generated sitemap includes all seven routes. |
-| Missing path | PASS (local) | `/this-path-does-not-exist/` returns HTTP 404 and useful custom page. |
-| Dependency audit | PASS | Zero vulnerabilities after patched tooling selection. |
-| Diff/content safety scan | PASS | No private absolute paths, exposed credentials, placeholder copy or source archives found in publishable source/assets/docs. Historical disputed count appears only in the correction record. |
+| Check                                                        | Result       | Evidence                                                                                                                                                                                      |
+| ------------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm ci`                                                     | PASS         | Clean lockfile install; 242 packages added, 243 audited, zero vulnerabilities.                                                                                                                |
+| `npm run lint`                                               | PASS         | Supported flat-config ESLint invocation, no errors.                                                                                                                                           |
+| `npm run typecheck`                                          | PASS         | Strict `tsc --noEmit`.                                                                                                                                                                        |
+| `npm test`                                                   | PASS         | Four behavioral tests: unchanged/changed history, reset purity, missing denominators/valid zero, invalid theme fallback.                                                                      |
+| `npm run build`                                              | PASS         | All seven required routes, robots, sitemap and real root 404 exported. No runtime server or Functions required.                                                                               |
+| `npm run test:e2e` with `CHROME_PATH=/usr/bin/google-chrome` | PASS         | 20 tests; 25.9s in recorded expanded run.                                                                                                                                                     |
+| Preview indexing finalization                                | PASS         | Simulated non-main branch emits `X-Robots-Tag: noindex, nofollow`; main restores production headers. Live preview host remains a separate check.                                              |
+| Internal links, CV and social assets                         | PASS         | Every page's root-relative links return 200; PDF starts with genuine `%PDF`; each social asset resolves.                                                                                      |
+| Canonicals/sitemap                                           | PASS         | Every required route points to its absolute approved custom origin; generated sitemap includes all seven routes.                                                                              |
+| Missing path                                                 | PASS (local) | `/this-path-does-not-exist/` returns HTTP 404 and useful custom page.                                                                                                                         |
+| Dependency audit                                             | PASS         | Zero vulnerabilities after patched tooling selection.                                                                                                                                         |
+| Diff/content safety scan                                     | PASS         | No private absolute paths, exposed credentials, placeholder copy or source archives found in publishable source/assets/docs. Historical disputed count appears only in the correction record. |
 
 ## Browser, accessibility and visual checks
 
@@ -50,8 +50,8 @@ NOT RUN — real assistive-technology/screen-reader session and physical touch-d
 
 Scores in order: Performance / Accessibility / Best Practices / SEO.
 
-| URL | UTC time | Scores | LCP | CLS | TBT |
-| --- | --- | --- | --- | --- | --- |
+| URL                      | UTC time            | Scores                   | LCP      | CLS   | TBT      |
+| ------------------------ | ------------------- | ------------------------ | -------- | ----- | -------- |
 | `http://127.0.0.1:4173/` | 2026-10-19 20:40:10 | **97 / 100 / 100 / 100** | **2.4s** | **0** | **90ms** |
 
 | `http://127.0.0.1:4173/work/olist/` | 2026-10-19T20:41:14.457Z | **99 / 100 / 100 / 100** | 1.8 s | 0 | 80 ms |
@@ -69,4 +69,41 @@ Raw JSON/HTML Lighthouse reports, full browser report and screenshots remain und
 
 ## Production verification
 
-NOT RUN — initial source publication and Cloudflare Pages provisioning are the next release step. Do not interpret configuration files or a local passing build as proof of DNS, TLS, Git integration, preview indexing, host redirects, active revision or production 404 behavior. Record observed outcomes here after deployment.
+PASS — initial source pushed at `b37ed116bdd66790e29b80f7f802b961510a3bba`; GitHub Actions [run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) completed successfully, including clean install, lint, types, logic tests, export and browser suite.
+
+FAIL — Cloudflare Git-integrated project creation: HTTP 401, code `8000011`, Git installation issue. Owner app authorization/repair requested. No project/free hostname was provisioned by that failed request.
+
+PASS — public NS records reflect the two assigned Cloudflare nameservers after the owner saved them at Name.com. Zone status remains pending; the old parking A record is still present.
+
+NOT RUN — actual deployed revision, subsequent Git-triggered Pages release, free/custom host routes, TLS, HTTP/www redirects, live preview noindex, security/cache headers, and host 404 behavior depend on provisioning and DNS completion. Configuration is not proof of working behavior.
+
+## Final targeted repair checks
+
+PASS — intermediate 768px screenshot review found a missing word space when a responsive line break is hidden. Added explicit whitespace; responsive reflow, system selectors, and a new browser-error check passed (3 targeted tests). All seven exported pages produced no uncaught/console errors. License-file trailing whitespace was normalized without changing license terms. The next CI revision also pins verified current official Node-24-based checkout/setup-node actions by immutable SHA.
+
+Origin centralization now uses `src/content/origins.json` in metadata, export finalization and tests. The first metadata-test attempt exposed a Node ESM JSON import-attribute requirement; it was corrected and all seven affected route checks passed. Live inspection also identified the root title template omitting the owner name; route metadata now uses an explicit absolute title.
+
+## Verified first Pages deployment
+
+PASS — Git-connected project `husseinelhaddad` assigned **https://husseinelhaddad.pages.dev**. Initial deployment `129fbb22-3d47-4727-860b-f14ba37fe52a` completed successfully on 19 October 2026 at 20:48:47 UTC. It cloned/built main revision `b37ed116bdd66790e29b80f7f802b961510a3bba`; `/build-info.json` confirms that exact revision and both origins. API reports `uses_functions: false`. The initial build was started through the Git deployment API; subsequent automatic Git-trigger proof is still required.
+
+PASS — actual free hostname: HTTPS validates; browser and curl return Home 200; nested Olist route 200; nonexistent path 404. Security/CSP, cache revalidation, frame, referrer and permissions headers are present. A transient 403 immediately after deployment was followed by verified 200 responses without bypassing access or TLS checks.
+
+PASS — owner repaired Git installation and public delegation; Cloudflare Free zone is active. Both apex and www are associated with Pages.
+
+FAIL — custom hosts currently return 525 from the previous origin. Pages reports “CNAME record not set” for both. Exact DNS records and Always Use HTTPS action were supplied to the owner; the current Wrangler session lacks DNS edit permissions. No TLS verification was disabled.
+
+The shared-origin/owner-inclusive-title metadata revision passed lint, strict types, export, and all seven affected route accessibility/metadata checks after the ESM import fix.
+
+## Live verification — 20 October 2026
+
+PASS — apex and www Pages domain associations both report active. Normal certificate-chain and hostname validation succeeds on apex, www and the production free host, all using TLS 1.3. Observed certificate expiries: apex 18 January 2027, www 18 January 2027, free host 17 January 2027 (provider-managed certificates, not domain registration expiry).
+
+PASS — HTTPS apex case study returns 200 with CSP, frame, MIME, referrer, permissions and HTML-revalidation headers. HTTP apex and HTTP www return 301 to the corresponding HTTPS URL, preserving `/work/olist/?source=verification`. No certificate validation was bypassed.
+
+FAIL (being repaired) — HTTPS www still returns 200. The initial domain-level `_redirects` rule was unsupported and ignored by Pages. Official Pages documentation confirms source domains are not supported. That file was removed. A proper free zone Single Redirect, restricted to www, is documented in `docs/CLOUDFLARE_RULES.json`. The session lacks Rulesets access (403); exact owner UI action requested.
+
+PASS — automatic preview `cc1a695d-88a5-4fbe-8d29-f581f4554afa` completed from **github:push** revision `bc3129cbc9c28faac7ef4423392dcb2c82150443`, with no Functions. Verified preview origin **https://cc1a695d.husseinelhaddad.pages.dev** and provider alias **https://release-hosting-verification.husseinelhaddad.pages.dev**. `/build-info.json` matches the revision, marks preview true, and responses include `X-Robots-Tag: noindex, nofollow`. GitHub Actions and Cloudflare Pages checks on PR #1 both pass.
+
+
+PASS — the full **21-test suite passed against the actual preview** on 20 October 2026 (42.6s), including 84 route/width/theme reflow combinations, accessibility in both themes, all interactions, no-JavaScript content and no browser errors. `BASE_URL` now makes the same suite reusable against deployed hosts without starting a local server; three URL-dependent harness checks passed locally after that change.
