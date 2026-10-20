@@ -32,8 +32,8 @@ export const projects: Project[] = [
     field: "Contextual intelligence",
     title: "Give the numbers their context.",
     summary:
-      "A team-built football assistant combining player scoring with retrieved news. My focus: RAG, application integration, and deployment.",
-    role: "Team lead · RAG & integration · 6 people",
+      "A team-built football assistant combining player scoring with retrieved news. My focus: RAG, orchestration, rule-based NLU, integration, and deployment.",
+    role: "Team lead · RAG, orchestration & NLU · 6 people",
     status: "University team project",
     stack: ["Python", "Chroma", "XGBoost", "Streamlit"],
     accent: "teal",
@@ -64,7 +64,8 @@ export type SupportingProject = {
   status: string;
   stack: string[];
   note: string;
-  repository: string;
+  repository: string | null;
+  repositoryLabel: "Team repository" | "Repository" | "No public source link";
 };
 
 export const moreProjects: SupportingProject[] = [
@@ -80,6 +81,7 @@ export const moreProjects: SupportingProject[] = [
     stack: ["HTML", "CSS", "JavaScript", "YOLOv8", "Inference API"],
     note: "Model training and API work belong to the team. Live inference is unverified; this is food detection, not calorie estimation.",
     repository: "https://github.com/MoBahgat010/So3ratk",
+    repositoryLabel: "Team repository",
   },
   {
     slug: "trip-planner",
@@ -93,5 +95,35 @@ export const moreProjects: SupportingProject[] = [
     stack: ["Java", "Swing", "FlatLaf", "Maven", "CSV"],
     note: "The application was built by the team. Data persists through CSV export, using a basic parser.",
     repository: "https://github.com/Abdelrahman2542/Trip---Planner",
+    repositoryLabel: "Team repository",
+  },
+  {
+    slug: "titanic",
+    name: "Titanic Survival Classification",
+    context: "Applied ML / DEPI mini project",
+    problem:
+      "Explore passenger-survival classification using historical Titanic data, comparing Logistic Regression and Decision Tree models.",
+    contribution:
+      "I built the preprocessing, feature engineering, model comparison and export workflow, and the inference interface.",
+    status: "Implemented learning prototype",
+    stack: ["Python", "pandas", "scikit-learn", "LightGBM", "Gradio"],
+    note: "Evaluation needs revision: target leakage and inconsistent age scaling limit the saved results. No validated accuracy or live demo is claimed.",
+    repository:
+      "https://github.com/HusseinElhaddad/Titanic-Classification-DEPI-Mini-Project",
+    repositoryLabel: "Repository",
+  },
+  {
+    slug: "football-etl",
+    name: "Football ETL",
+    context: "Data engineering / Atos internship",
+    problem:
+      "Turn related football workbook tables into validated MySQL data and traceable player-performance reporting.",
+    contribution:
+      "I built the extraction, validation, transformation, orchestration, database loading, and reporting workflow end to end.",
+    status: "Implemented internship exercise",
+    stack: ["Python", "pandas", "MySQL", "SQLAlchemy", "pytest"],
+    note: "Staged upserts use per-table transactions. Historical reconciliation found legacy invalid rows; the current database state is unverified.",
+    repository: null,
+    repositoryLabel: "No public source link",
   },
 ];

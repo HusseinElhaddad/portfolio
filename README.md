@@ -51,7 +51,7 @@ To use an installed Chrome for tests, set `CHROME_PATH=/path/to/google-chrome`. 
 | `tests/`                    | Stateful logic and production-export browser/a11y/reflow checks                                                  |
 | `docs/`                     | Content evidence, implementation checklist, QA, hosting and domain transition                                    |
 
-Keep project roles and team architecture separate. When changing status, verify current evidence; do not imply completed end-to-end integration from implemented modules alone. Update `docs/CONTENT_EVIDENCE.md` when introducing claims. Avoid time-sensitive availability statements without checking them.
+For a supporting project without a public repository, use `repository: null` and `repositoryLabel: "No public source link"`; never invent a URL or publish private code to supply one. Keep project roles and team architecture separate. When changing status, verify current evidence; do not imply completed end-to-end integration from implemented modules alone. Update `docs/CONTENT_EVIDENCE.md` when introducing claims. Avoid time-sensitive availability statements without checking them.
 
 Replace the CV at `public/Hussein_Elhaddad_AI_Engineer_CV.pdf` with a genuinely public-ready, reconciled PDF. Preserve the private original outside this repository. Render and inspect every new version. Do not publish original project source archives, datasets, model weights or private participant material.
 
