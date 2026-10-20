@@ -1,109 +1,79 @@
 # Observed release verification
 
-Date: **19 October 2026**. All results below are actual executed checks of this portfolio, not historical project reports. Deployment results will be appended after publishing. Public source projects were not executed or changed.
+Verified **19–20 October 2026**. These are executed portfolio checks, independent of historical evidence from the featured projects. Original source projects remained read-only and were not executed.
 
-## Environment
+## Release and environment
 
-- Linux; Node **24.22.0** LTS; npm **11.19.1**.
+The tested application is main revision `ffebac9162604a03ed31f5374358562459db998c`, merged through [PR #1](https://github.com/HusseinElhaddad/portfolio/pull/1). [GitHub Actions run 39433577130](https://github.com/HusseinElhaddad/portfolio/actions/runs/39433577130) passed. Cloudflare production deployment `42538ff0-f2f2-4161-b65d-491aef725d91` succeeded from **github:push** at 13:49:55 UTC on 20 October. Both production hosts' build information matched the revision and reported `preview: false`. The final handover release changes documentation and non-overlapping cache rules; application components, CSS and content remain identical to the measured release.
+
+- Linux; Node **24.22.0 LTS**, npm **11.19.1**.
 - Next.js **16.4.2**, React **19.3.1**, TypeScript **5.9.3**, Motion **14.4.0**.
-- ESLint **10.13.0** + TypeScript ESLint **8.72.0**. The Next lint preset pulled an unpatched transitive glob-parser advisory and React plugins with incompatible ESLint 10 peers. It was replaced with supported ESLint/TypeScript recommended checks; no advisory was suppressed and no vulnerable override forced.
-- Playwright **1.64.1**, axe-core integration **4.14.0**, installed Google Chrome **155.0.8059.84** (headless).
-- Lighthouse **13.5.0**, mobile defaults: simulated throttling, 412 × 823 CSS viewport, CPU slowdown 4×, 1,638.4 Kbps / 150ms simulated network. Read exact configuration from retained JSON reports for reproduction.
-- Export served at `http://127.0.0.1:4173/` with gzip for text. This is a production export, not the development server. No field INP or real-user metrics are claimed.
+- ESLint **10.13.0**, TypeScript ESLint **8.72.0**. Supported flat configuration; no security advisory suppressed.
+- Playwright **1.64.1**, axe-core **4.14.0**, Google Chrome **155.0.8059.84**, headless.
+- Lighthouse **13.5.0**, mobile defaults: simulated throttling, 412 × 823 CSS pixels, CPU slowdown 4×, 1,638.4 Kbps and 150ms simulated network. Runs were sequential, separate from browser-suite execution.
+- Local production export: `http://127.0.0.1:4173/`, gzip text compression. No development-server scores or field INP claims.
 
-Next's detached TypeScript process returned empty stdout inside the restrictive command sandbox. The same build completed outside that sandbox under the tool's approved escalation. This did not require disabling Next's type checks.
+## Executed release checks
 
-## Commands and results
+| Check | Result | Observed evidence |
+| --- | --- | --- |
+| `npm ci` and audit | PASS | Clean lockfile install, 242 packages added / 243 audited; zero vulnerabilities. |
+| `npm run lint` | PASS | Supported ESLint invocation, no errors. |
+| `npm run typecheck` | PASS | Strict TypeScript. |
+| `npm test` | PASS | Four behavioral tests: history unchanged/change, reset purity, missing denominator/valid zero, theme fallback. |
+| `npm run build` | PASS | Seven required HTML routes, metadata files and root 404; no runtime server/Functions. |
+| Actual preview browser suite | PASS | All 21 tests passed, 42.6s; deployed branch preview, not localhost. |
+| Actual free production browser suite | PASS | All 21 tests passed, 48.2s on `https://husseinelhaddad.pages.dev`. |
+| Actual custom production browser suite | PASS after repair | Full run: 19 pass, 2 fail due provider analytics injection. After owner disabled automatic RUM, both affected tests passed in 4.2s. The affected checks cover all seven pages for console errors and all three demos for external network requests. |
+| Live HTTP routes/assets/status/redirects | PASS | 38 checks at 2026-10-20T13:51:11.825Z across both production origins; all seven routes, CV, fonts, previews, icons, sitemap/robots, build info, genuine missing-path 404 and encoded-query redirects. |
+| Metadata and internal links | PASS | Every route has a descriptive owner-inclusive title, absolute canonical and working internal targets; sitemap includes all seven pages. |
+| Preview indexing | PASS | Actual hash preview and branch alias return `X-Robots-Tag: noindex, nofollow`, exact build revision and `preview: true`. Production has no noindex restriction. |
+| Git deployment | PASS | Automatic branch preview and subsequent main production deployments both use `github:push`; deployed revision matches tested source. |
+| DNS/TLS/redirects | PASS | Active Free zone and both Pages associations; standard chain/hostname validation on apex, www and free host, TLS 1.3. HTTP apex/HTTP www/HTTPS www return 301 to HTTPS apex preserving `/work/olist/?a=1&b=two%20words`. Free HTTPS host remains 200. |
+| Security/cache headers | PASS with final repair | CSP, nosniff, frame, referrer and permissions headers observed. HTML revalidates; hashed assets are immutable. Free-host font responses initially combined global and asset max-age directives; final rules restrict HTML revalidation to page/metadata paths to eliminate overlap. Live final-release verification checks the resulting headers. |
+| Content/safety scan | PASS | No private source paths, credentials, source archives, placeholder copy or unsupported metrics in publishable content. Disputed original test count appears only in the correction record. |
 
-| Check                                                        | Result       | Evidence                                                                                                                                                                                      |
-| ------------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm ci`                                                     | PASS         | Clean lockfile install; 242 packages added, 243 audited, zero vulnerabilities.                                                                                                                |
-| `npm run lint`                                               | PASS         | Supported flat-config ESLint invocation, no errors.                                                                                                                                           |
-| `npm run typecheck`                                          | PASS         | Strict `tsc --noEmit`.                                                                                                                                                                        |
-| `npm test`                                                   | PASS         | Four behavioral tests: unchanged/changed history, reset purity, missing denominators/valid zero, invalid theme fallback.                                                                      |
-| `npm run build`                                              | PASS         | All seven required routes, robots, sitemap and real root 404 exported. No runtime server or Functions required.                                                                               |
-| `npm run test:e2e` with `CHROME_PATH=/usr/bin/google-chrome` | PASS         | 20 tests; 25.9s in recorded expanded run.                                                                                                                                                     |
-| Preview indexing finalization                                | PASS         | Simulated non-main branch emits `X-Robots-Tag: noindex, nofollow`; main restores production headers. Live preview host remains a separate check.                                              |
-| Internal links, CV and social assets                         | PASS         | Every page's root-relative links return 200; PDF starts with genuine `%PDF`; each social asset resolves.                                                                                      |
-| Canonicals/sitemap                                           | PASS         | Every required route points to its absolute approved custom origin; generated sitemap includes all seven routes.                                                                              |
-| Missing path                                                 | PASS (local) | `/this-path-does-not-exist/` returns HTTP 404 and useful custom page.                                                                                                                         |
-| Dependency audit                                             | PASS         | Zero vulnerabilities after patched tooling selection.                                                                                                                                         |
-| Diff/content safety scan                                     | PASS         | No private absolute paths, exposed credentials, placeholder copy or source archives found in publishable source/assets/docs. Historical disputed count appears only in the correction record. |
+Next's build type-check subprocess did not return normal stdout inside the command sandbox; the same build passed using the approved tool escalation. Type checks were not disabled.
 
-## Browser, accessibility and visual checks
+## Browser, accessibility and visual review
 
-PASS: automated axe scans on all seven routes, desktop and 375px mobile, both light/dark themes, with WCAG 2/2.1/2.2 A/AA tags. These scans are not a complete WCAG conformance certification.
+PASS — axe scans on every route at desktop and 375px mobile in both themes, using WCAG 2/2.1/2.2 A/AA tags. This is not a complete WCAG conformance certification.
 
-PASS: reflow sweep of **320, 375, 768, 1024, 1440 and 1920px**, every route in both themes (84 combinations), with no horizontal page overflow. Wide tabular data uses a named keyboard-focusable scroll region rather than causing page overflow.
+PASS — **84 route/width/theme combinations**: all seven pages, light/dark, widths **320, 375, 768, 1024, 1440, 1920px**. No horizontal page overflow. Wide data tables have named, keyboard-focusable scroll regions.
 
-PASS: keyboard-generated navigation checks verify skip-link focus, menu activation, focus order into navigation, Escape dismissal/return, link navigation, browser back/forward. Native buttons/selects are used throughout. The menu is a nonmodal disclosure and does not trap focus.
+PASS — keyboard-generated checks cover skip navigation, mobile disclosure menu focus order, Escape/return focus, ordinary route navigation and back/forward. Native buttons/selects and explicit names are used. Diagram selection/anchors, all demo changes/resets, contradictory/empty retrieval, missing-data/zero-denominator handling, email-copy success/failure, PDF download, theme persistence/system/storage failure, no-JavaScript essential content and reduced motion all pass. Demo examples require no external network or inference.
 
-PASS: diagram selection/context/anchor, product history unchanged/change/reset, retrieval disagreement/no evidence/reset, campaign zero-denominator handling/reset, email copy success/failure, real CV delivery, theme persistence, system dark preference and unavailable storage fallback. Demo pages make no external network requests. Reduced-motion mode and no-JavaScript essential content are tested.
+PASS — **28 full-page screenshots** captured and visually reviewed: every route at 375 × 812 and 1440 × 1000 in both themes. Additional 768px renders and focused review sheets were inspected. Repairs included contact-action stretching, a tablet word-space omission and transition-time contrast. The corrected one-page CV was rendered with Poppler and inspected; the original was preserved.
 
-PASS: 28 full-page screenshots captured for all routes at **375 × 812** and **1440 × 1000**, both themes. Reviewed the actual renders for type hierarchy, spacing, chart labels, long copy, footer, clipping and visual consistency. Additional focused screenshots and review sheets are retained locally. Visual review found the contact primary action stretching to its neighboring status element; `align-items: flex-start` repaired it. A transition-time contrast failure in the first axe run was repaired by removing background/text color interpolation from buttons. The corrected menu test uses a stable aria-controls selector because the accessible name intentionally changes from Menu to Close.
+PASS — six additional zoom-equivalent renders of Home/Olist/Contact in both themes: 640 CSS-pixel viewport at deviceScaleFactor 2, representing 1280 physical pixels. Text remained readable and document width remained 640. This is reflow emulation, not a native browser-toolbar zoom interaction.
 
-The corrected CV was rendered with Poppler and visually inspected after the final font correction. It remains one page; original source unchanged. Font licensing and exact content edits are documented.
+NOT RUN — an actual screen-reader session, physical-device touch audit and native toolbar 200% zoom inspection were unavailable. Automated keyboard events, semantic review, screenshots and reflow emulation provide partial coverage. No field metrics or real-user INP measured; analytics is disabled.
 
-NOT RUN — real assistive-technology/screen-reader session and physical touch-device testing are unavailable here. Browser keyboard events, native control semantics, accessible names/announcements and textual chart alternatives were inspected/tested. The narrow-width sweep covers reflow; no claim of a human audit at actual browser 200% zoom is made.
+## Lighthouse mobile lab measurements
 
-## Lighthouse: production export, mobile lab
+Scores: **Performance / Accessibility / Best Practices / SEO**. Times below are report fetch times in UTC.
 
-Scores in order: Performance / Accessibility / Best Practices / SEO.
+| URL | UTC fetch time | Scores | LCP | CLS | TBT |
+| --- | --- | --- | --- | --- | --- |
+| Local Home: `http://127.0.0.1:4173/` | 2026-10-19T20:40:10.674Z | **97 / 100 / 100 / 100** | 2.4 s | 0 | 90 ms |
+| Local Olist: `http://127.0.0.1:4173/work/olist/` | 2026-10-19T20:41:14.457Z | **99 / 100 / 100 / 100** | 1.8 s | 0 | 80 ms |
+| Production free Home: `https://husseinelhaddad.pages.dev/` | 2026-10-20T13:57:52.907Z | **90 / 100 / 100 / 100** | 3.2 s | 0 | 90 ms |
+| Production custom Home: `https://husseinelhaddad.dev/` | 2026-10-20T14:01:40.887Z | **89 / 100 / 100 / 100** | 3.3 s | 0 | 80 ms |
+| Production custom Olist: `https://husseinelhaddad.dev/work/olist/` | 2026-10-20T14:02:42.798Z | **96 / 100 / 100 / 100** | 2.3 s | 0 | 80 ms |
 
-| URL                      | UTC time            | Scores                   | LCP      | CLS   | TBT      |
-| ------------------------ | ------------------- | ------------------------ | -------- | ----- | -------- |
-| `http://127.0.0.1:4173/` | 2026-10-19 20:40:10 | **97 / 100 / 100 / 100** | **2.4s** | **0** | **90ms** |
+PASS — all measured accessibility, best-practices and SEO category scores are 100. Olist production performance is 96 with 2.3s LCP; CLS is zero throughout.
 
-| `http://127.0.0.1:4173/work/olist/` | 2026-10-19T20:41:14.457Z | **99 / 100 / 100 / 100** | 1.8 s | 0 | 80 ms |
+FAIL (target, not functionality) — custom Home performance **89** misses the ≥90 aim; its **3.3s** LCP and free Home **3.2s** LCP exceed the ≤2.5s aim. Free Home performance is 90. These are actual cold-load mobile simulations; do not substitute the faster local result for production.
 
-Initial uncompressed Home and Olist runs scored 89 / 100 / 100 / 100 with 3.8s LCP. Meaningful changes moved static project artwork outside client boundaries, deferred Motion features, disabled eager navigation prefetch, and added representative text compression to the static preview. Lab results vary; no field performance guarantee or field INP is asserted.
+Investigation: homepage LCP is the static H1. Lighthouse identifies approximately 290ms potential savings from two render-blocking CSS files (about 8.4KB transferred together); server response was about 130ms and total page transfer about 282KiB. Static artwork was already moved outside client boundaries, Motion features deferred, eager link prefetch disabled and fonts self-hosted/preloaded with `font-display: swap`. These changes improved the original local 89 score to 97. No essential content waits for animation. Next's [CSS inlining option](https://nextjs.org/docs/app/api-reference/config/next-config-js/inlineCss) remains experimental and is explicitly not recommended for production, so it was not enabled solely to chase a lab threshold. External styles retain cross-page caching. Further production tuning can target CSS delivery/font and JavaScript budgets without weakening accessibility or adding a runtime dependency. Lab results vary; no field performance guarantee is made.
 
-Raw JSON/HTML Lighthouse reports, full browser report and screenshots remain under gitignored `qa/` and `playwright-report/` in the checkout. They are intentionally excluded from deployed website content.
+Raw JSON/HTML Lighthouse reports, browser reports, HTTP results and screenshots are retained locally in gitignored `qa/` (plus `playwright-report/`). They are not deployed to ordinary visitors. Use `BASE_URL` with the browser suite to reproduce checks on a deployed host.
 
-## External links
+## External evidence links and resolved issues
 
-- PASS: public GitHub profile, FPL `dev` branch, Sawakli team repository and So3ratk canonical repository returned HTTP 200.
-- NOT RUN — LinkedIn profile contents are access-limited (HTTP 999). The owner-approved URL is retained; it is not automatically classified as broken.
-- FAIL (live app availability): documented FPL Streamlit URL redirects through authentication and produced a redirect-loop result in the automated request. The site explicitly marks live functionality unverified and supplies independent prepared examples. No repair of that separate app was attempted.
-- Private Olist source: intentionally not exposed as a public-source CTA.
+- PASS — public GitHub profile, FPL default `dev` branch, Sawakli team repository and canonical So3ratk repository returned 200.
+- NOT RUN — LinkedIn content is access-limited (HTTP 999); the approved link is retained and not classified as broken.
+- FAIL (external app availability) — the documented FPL Streamlit address redirected through authentication and produced a redirect-loop result. The case study labels live functionality unverified and provides independent illustrative examples. No source-project repair was attempted.
+- Private Olist source is intentionally not offered as a public-source CTA.
 
-## Production verification
-
-PASS — initial source pushed at `b37ed116bdd66790e29b80f7f802b961510a3bba`; GitHub Actions [run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) completed successfully, including clean install, lint, types, logic tests, export and browser suite.
-
-FAIL — Cloudflare Git-integrated project creation: HTTP 401, code `8000011`, Git installation issue. Owner app authorization/repair requested. No project/free hostname was provisioned by that failed request.
-
-PASS — public NS records reflect the two assigned Cloudflare nameservers after the owner saved them at Name.com. Zone status remains pending; the old parking A record is still present.
-
-NOT RUN — actual deployed revision, subsequent Git-triggered Pages release, free/custom host routes, TLS, HTTP/www redirects, live preview noindex, security/cache headers, and host 404 behavior depend on provisioning and DNS completion. Configuration is not proof of working behavior.
-
-## Final targeted repair checks
-
-PASS — intermediate 768px screenshot review found a missing word space when a responsive line break is hidden. Added explicit whitespace; responsive reflow, system selectors, and a new browser-error check passed (3 targeted tests). All seven exported pages produced no uncaught/console errors. License-file trailing whitespace was normalized without changing license terms. The next CI revision also pins verified current official Node-24-based checkout/setup-node actions by immutable SHA.
-
-Origin centralization now uses `src/content/origins.json` in metadata, export finalization and tests. The first metadata-test attempt exposed a Node ESM JSON import-attribute requirement; it was corrected and all seven affected route checks passed. Live inspection also identified the root title template omitting the owner name; route metadata now uses an explicit absolute title.
-
-## Verified first Pages deployment
-
-PASS — Git-connected project `husseinelhaddad` assigned **https://husseinelhaddad.pages.dev**. Initial deployment `129fbb22-3d47-4727-860b-f14ba37fe52a` completed successfully on 19 October 2026 at 20:48:47 UTC. It cloned/built main revision `b37ed116bdd66790e29b80f7f802b961510a3bba`; `/build-info.json` confirms that exact revision and both origins. API reports `uses_functions: false`. The initial build was started through the Git deployment API; subsequent automatic Git-trigger proof is still required.
-
-PASS — actual free hostname: HTTPS validates; browser and curl return Home 200; nested Olist route 200; nonexistent path 404. Security/CSP, cache revalidation, frame, referrer and permissions headers are present. A transient 403 immediately after deployment was followed by verified 200 responses without bypassing access or TLS checks.
-
-PASS — owner repaired Git installation and public delegation; Cloudflare Free zone is active. Both apex and www are associated with Pages.
-
-FAIL — custom hosts currently return 525 from the previous origin. Pages reports “CNAME record not set” for both. Exact DNS records and Always Use HTTPS action were supplied to the owner; the current Wrangler session lacks DNS edit permissions. No TLS verification was disabled.
-
-The shared-origin/owner-inclusive-title metadata revision passed lint, strict types, export, and all seven affected route accessibility/metadata checks after the ESM import fix.
-
-## Live verification — 20 October 2026
-
-PASS — apex and www Pages domain associations both report active. Normal certificate-chain and hostname validation succeeds on apex, www and the production free host, all using TLS 1.3. Observed certificate expiries: apex 18 January 2027, www 18 January 2027, free host 17 January 2027 (provider-managed certificates, not domain registration expiry).
-
-PASS — HTTPS apex case study returns 200 with CSP, frame, MIME, referrer, permissions and HTML-revalidation headers. HTTP apex and HTTP www return 301 to the corresponding HTTPS URL, preserving `/work/olist/?source=verification`. No certificate validation was bypassed.
-
-FAIL (being repaired) — HTTPS www still returns 200. The initial domain-level `_redirects` rule was unsupported and ignored by Pages. Official Pages documentation confirms source domains are not supported. That file was removed. A proper free zone Single Redirect, restricted to www, is documented in `docs/CLOUDFLARE_RULES.json`. The session lacks Rulesets access (403); exact owner UI action requested.
-
-PASS — automatic preview `cc1a695d-88a5-4fbe-8d29-f581f4554afa` completed from **github:push** revision `bc3129cbc9c28faac7ef4423392dcb2c82150443`, with no Functions. Verified preview origin **https://cc1a695d.husseinelhaddad.pages.dev** and provider alias **https://release-hosting-verification.husseinelhaddad.pages.dev**. `/build-info.json` matches the revision, marks preview true, and responses include `X-Robots-Tag: noindex, nofollow`. GitHub Actions and Cloudflare Pages checks on PR #1 both pass.
-
-
-PASS — the full **21-test suite passed against the actual preview** on 20 October 2026 (42.6s), including 84 route/width/theme reflow combinations, accessibility in both themes, all interactions, no-JavaScript content and no browser errors. `BASE_URL` now makes the same suite reusable against deployed hosts without starting a local server; three URL-dependent harness checks passed locally after that change.
+Resolved: the initial Cloudflare Git installation error was repaired by the owner; DNS activation/CNAME setup resolved initial origin TLS failures. An unsupported domain-level Pages `_redirects` entry was removed and replaced with the verified zone Single Redirect. Separate account/zone Web Analytics injection was disabled by the owner; final network/console checks pass without loosening CSP or tests. No outstanding owner authentication/DNS action is required for the verified launch.

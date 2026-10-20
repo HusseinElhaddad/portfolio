@@ -6,9 +6,11 @@ GitHub: `https://github.com/HusseinElhaddad/portfolio`, public, `main`. The repo
 
 Cloudflare: Git-connected Pages project **`husseinelhaddad`**, assigned free production origin **https://husseinelhaddad.pages.dev**. Owner repaired the GitHub integration after the initial `8000011` error. Both production and preview build environments use the pinned Node version and actual free origin. No runtime Functions or paid resources were configured.
 
-The domain has an **active Free Website** zone. The owner saved the assigned Cloudflare nameservers at Name.com; public delegation reflects them. Both domains are associated with Pages. The free production origin is live and verified; the owner saved both proxied CNAME records and enabled Always Use HTTPS. Both Pages domains now report active, and standard TLS validation succeeds. The www-to-apex redirect still requires the zone Single Redirect described below. The earlier parking A record is not evidence of a portfolio deployment.
+The domain has an **active Free Website** zone. Name.com delegation now uses the assigned Cloudflare nameservers. Both associated Pages domains serve the portfolio over valid HTTPS. The owner configured proxied apex/www CNAMEs, Always Use HTTPS and a hostname-specific www-to-apex Single Redirect. Path/query preservation and continued access to the free production host were verified on 20 October 2026.
 
-Initial source revision: `b37ed116bdd66790e29b80f7f802b961510a3bba`; [GitHub Actions run 39321605155](https://github.com/HusseinElhaddad/portfolio/actions/runs/39321605155) passed. First Pages deployment `129fbb22-3d47-4727-860b-f14ba37fe52a` completed successfully from Git main through the API (ad hoc trigger), with no Functions. The actual free host returns 200 for required pages and 404 for a missing path over valid HTTPS. Automatic preview and subsequent production Git-trigger verification are tracked in `docs/QA.md`.
+[PR #1](https://github.com/HusseinElhaddad/portfolio/pull/1) merged the tested release as `ffebac9162604a03ed31f5374358562459db998c`. [Main CI run 39433577130](https://github.com/HusseinElhaddad/portfolio/actions/runs/39433577130) passed. Cloudflare production deployment `42538ff0-f2f2-4161-b65d-491aef725d91` completed from **github:push** at 13:49:55 UTC on 20 October 2026, without Functions. Both production hosts' `/build-info.json` matched that exact revision. This proves automatic Git deployment, beyond the initial API-triggered deployment. Subsequent handover/cache-header releases preserve the tested application components and content; compare their build revision with the current Git head.
+
+An automatic branch preview and its provider alias were also verified: both returned matching build information and `X-Robots-Tag: noindex, nofollow`. See [QA](QA.md) for measured results and limitations.
 
 ## Pages Git configuration
 
@@ -23,7 +25,7 @@ Configured as a **Pages** Git-integrated project:
 - `NEXT_PUBLIC_SITE_ORIGIN=https://husseinelhaddad.dev`.
 - `NEXT_PUBLIC_FREE_ORIGIN=https://husseinelhaddad.pages.dev`.
 - Preview branch deployments enabled. `CF_PAGES_BRANCH` drives the build's noindex header on non-main builds; Cloudflare also supplies preview indexing restrictions.
-- No Functions, bindings, paid services, Web Analytics or Zaraz.
+- No Functions, bindings, paid services, Web Analytics or Zaraz. Pages analytics fields are empty; zone/account automatic Web Analytics must also remain disabled.
 
 The GitHub integration can require an owner-operated installation/authorization. Wrangler login alone is not evidence that Cloudflare can read the repository. If required, open Cloudflare **Workers & Pages → Create application → Pages → Import an existing Git repository**. Authorize the Cloudflare GitHub app for **only the portfolio repository**, then select it. Do not paste a token into an issue, config file or chat.
 
@@ -47,7 +49,7 @@ Original public nameservers observed before migration:
 - `ns3cfp.name.com`
 - `ns4gvx.name.com`
 
-The current Wrangler OAuth session can read the zone but DNS-record and DNSSEC endpoints return HTTP 403. Existing records therefore cannot be safely reconciled by that session. **Before delegation changes, the owner must inspect existing DNS and copy/preserve all email and unrelated service records in the Cloudflare zone.** No records were guessed, overwritten or removed. Public DNS showed no DS record at the initial check; still review the registrar's DNSSEC setting before a transition.
+The current Wrangler OAuth session can read the zone but DNS-record and DNSSEC endpoints return HTTP 403. Existing records therefore cannot be safely reconciled by that session. The owner was instructed to inspect existing DNS and copy/preserve all email and unrelated service records before delegation. That private record inventory was not independently available through this session. No records were guessed, overwritten or removed. Public DNS showed no DS record at the initial check; still review the registrar's DNSSEC setting before a transition.
 
 After the real free Pages address works:
 
@@ -88,8 +90,12 @@ Official Pages limits rechecked 19 October 2026: 500 builds/month, one concurren
 
 Official references: [static Next.js](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/), [Git integration](https://developers.cloudflare.com/pages/configuration/git-integration/), [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/), [preview indexing](https://developers.cloudflare.com/pages/configuration/preview-deployments/), [limits](https://developers.cloudflare.com/pages/platform/limits/), [pricing](https://developers.cloudflare.com/pages/functions/pricing/), [rollback](https://developers.cloudflare.com/pages/configuration/rollbacks/).
 
-### Verified DNS and TLS; remaining host redirect
+## Provider-injected analytics
 
-On 20 October 2026, both Pages domain associations report active. Owner-saved proxied CNAME records point apex and www to `husseinelhaddad.pages.dev`; Always Use HTTPS is enabled. Standard Python TLS verification succeeds for apex, www and the free origin (TLS 1.3, matching hostname certificates). HTTP redirects preserve the tested path/query.
+Cloudflare Web Analytics automatic setup is separate from the Pages analytics setting. Production browser checks initially found an injected `static.cloudflareinsights.com` beacon blocked by the site's CSP. The owner disabled automatic setup/RUM in **Web Analytics → husseinelhaddad.dev → Manage site → Disable**. After propagation, the two affected checks passed: demos made no external requests and every required page loaded without browser errors. No CSP exception, analytics code or test suppression was added. Keep this setting disabled after future provider changes; see [official setup controls](https://developers.cloudflare.com/web-analytics/get-started/).
 
-The www host still serves 200 until the owner deploys the Single Redirect above. The current Wrangler OAuth session returns 403 for the Rulesets entrypoint and cannot configure this rule. Owner-operated UI steps were supplied. This is a narrow, hostname-specific rule; no redirect applies to the free Pages production address. Never replace a whole existing zone ruleset with the one-rule documentation example.
+## Verified host behavior
+
+On 20 October 2026, both Pages domain associations report active. Standard certificate-chain and hostname checks succeeded for apex, www and the free origin using TLS 1.3. HTTP apex and HTTP www, plus HTTPS www, return 301 to HTTPS apex with the tested path and encoded query preserved. HTTPS free production case-study URLs remain directly accessible (200). Missing pages return genuine 404s. These checks used normal TLS validation.
+
+The owner deployed the Single Redirect above because the current OAuth session has no Rulesets write access. Its observed behavior is verified; the repository JSON records the intended rule rather than pretending to manage the whole account. Never replace a complete existing ruleset with that one-rule example.
