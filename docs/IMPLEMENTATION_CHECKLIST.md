@@ -28,3 +28,13 @@ The live application release is `ffebac9162604a03ed31f5374358562459db998c`; auto
 No paid infrastructure/API, analytics, source-project mutations, private Olist code, participant data or credentials. Public project metrics remain contextual historical evidence. All three demos use authored synthetic fixtures.
 
 No screen-reader session, physical device audit or field-performance measurement was available. The original FPL app's live functionality remains unverified; the portfolio supplies independent examples and labels it accurately. Domain registration expiry is owner-supplied: 19 October 2027. Begin the documented free-origin transition on 20 August 2027; no automation or billing change was made.
+
+## Work collection expansion — 20 October 2026
+
+- [x] Review historical evidence and relevant read-only sources; verify public repositories.
+- [x] Confirm Trip Planner attribution with owner: documentation/compatibility only.
+- [x] Preserve featured cases/routes; add typed More Projects cards without navigation duplication or unnecessary filters.
+- [x] Document supporting claims, conservative omissions and four unpublished review candidates.
+- [x] Pass lint/types/logic/export and all 21 existing browser checks; inspect six widths in both themes and keyboard/link behavior.
+
+Release uses the established branch → checked Pages preview/PR → main Git deployment workflow. Exact release/check/deployment evidence is retained in the expansion PR and final handover; the [expansion QA section](QA.md#work-collection-expansion--20-october-2026) records the executed local checks.

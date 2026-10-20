@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { pageMeta } from "@/content/site";
-import { projects } from "@/content/projects";
+import { projects, moreProjects } from "@/content/projects";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import { ContactCTA } from "@/components/layout/Footer";
 import styles from "./work.module.css";
 export const metadata = pageMeta(
   "Selected work",
-  "Three engineering case studies: reliable Olist data pipelines, FPL-Intel RAG integration, and Sawakli analytical foundations. Plus team frontend work on So3ratk.",
+  "Explore Olist data pipelines, FPL-Intel RAG integration, and Sawakli analytical foundations, plus focused contributions to So3ratk and Trip Planner.",
   "/work/",
   "work",
 );
@@ -15,7 +15,7 @@ export default function Work() {
     <>
       <div className="container">
         <header className="page-intro">
-          <span className="eyebrow">Selected work / 01—03</span>
+          <span className="eyebrow">Selected work / Engineering collection</span>
           <h1>
             How I turn a problem
             <br />
@@ -23,10 +23,11 @@ export default function Work() {
           </h1>
           <p className="lede">
             The data, the decisions, and my part in the work. Three deeper case
-            studies, with small examples you can explore.
+            studies with examples you can explore, followed by a small collection
+            of supporting projects.
           </p>
         </header>
-        <div className={styles.projects}>
+        <section className={styles.projects} aria-label="Featured case studies">
           {projects.map((p) => (
             <article className={styles.project} key={p.slug}>
               <div className={styles.summary}>
@@ -57,28 +58,48 @@ export default function Work() {
               <ProjectVisual type={p.slug} />
             </article>
           ))}
-        </div>
+        </section>
         <section
           className={styles.supporting}
-          aria-labelledby="supporting-title"
+          aria-labelledby="more-projects-title"
         >
-          <span className="eyebrow">Also built / Team frontend</span>
-          <div>
-            <h2 id="supporting-title">So3ratk</h2>
+          <header className={styles.collectionIntro}>
+            <span className="eyebrow">Beyond the case studies</span>
+            <h2 id="more-projects-title">More Projects</h2>
             <p>
-              A team Egyptian-food detection application using YOLOv8, an
-              inference API, and an image-upload interface. I developed the
-              frontend for uploads and visualizing annotated predictions.
+              Smaller projects, with a clear view of the problem and my role.
             </p>
-            <p className="small-note">
-              Food detection · Model work credited to the team
-            </p>
-            <a
-              href="https://github.com/MoBahgat010/So3ratk"
-              className="text-link"
-            >
-              Team repository <span aria-hidden="true">↗</span>
-            </a>
+          </header>
+          <div className={styles.moreGrid}>
+            {moreProjects.map((project) => (
+              <article
+                className={styles.moreCard}
+                key={project.slug}
+                aria-labelledby={`${project.slug}-title`}
+              >
+                <span className="eyebrow">{project.context}</span>
+                <h3 id={`${project.slug}-title`}>{project.name}</h3>
+                <span className="status">{project.status}</span>
+                <p className={styles.problem}>{project.problem}</p>
+                <dl className={styles.contribution}>
+                  <dt>My contribution</dt>
+                  <dd>{project.contribution}</dd>
+                </dl>
+                <ul className="tags" aria-label={`${project.name} team stack`}>
+                  {project.stack.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p className={styles.scope}>{project.note}</p>
+                <a
+                  href={project.repository}
+                  className="text-link"
+                  aria-label={`${project.name} team repository`}
+                >
+                  Team repository <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+            ))}
           </div>
         </section>
       </div>
