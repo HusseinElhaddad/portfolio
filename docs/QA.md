@@ -77,3 +77,19 @@ Raw JSON/HTML Lighthouse reports, browser reports, HTTP results and screenshots 
 - Private Olist source is intentionally not offered as a public-source CTA.
 
 Resolved: the initial Cloudflare Git installation error was repaired by the owner; DNS activation/CNAME setup resolved initial origin TLS failures. An unsupported domain-level Pages `_redirects` entry was removed and replaced with the verified zone Single Redirect. Separate account/zone Web Analytics injection was disabled by the owner; final network/console checks pass without loosening CSP or tests. No outstanding owner authentication/DNS action is required for the verified launch.
+
+## Work collection expansion — 20 October 2026
+
+Scope: only Work layout/content, shared typed project content, README editing guidance and evidence notes. The three featured case-study URLs, navigation and demos are preserved. The new supporting collection expands So3ratk and adds Trip Planner, credited only for owner-confirmed documentation/NetBeans compatibility. No filters, client dependencies, source-project changes or private-source publication.
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Lint / types / existing logic checks | PASS | `npm run lint`, `npm run typecheck`, `npm test`, unchanged dependencies. |
+| Production static export | PASS | `npm run build`; all seven pages and real root 404 exported. |
+| Existing browser suite | PASS | **21 passed in 25.9s** against the export, Chrome 155 / Playwright 1.64.1. Includes all-route links/metadata, both-theme axe checks, six-width reflow, keyboard menu/back-forward, demos and browser-error checks. |
+| Focused collection review | PASS | **12 width/theme combinations** at 320/375/768/1024/1440/1920, light/dark. Screenshots captured; actual desktop, mobile and tablet renders inspected. No page overflow; repository links have visible keyboard focus and correct forward/reverse tab order. Both cards exist without JavaScript. |
+| Public repository links | PASS | Unauthenticated normal-TLS HTTP 200 for So3ratk and Trip Planner, plus GitHub API verification that both are public and canonical. No unverified demo link added. |
+| Content attribution | PASS | Trip Planner UI ownership explicitly omitted after owner clarification. Team stack and personal role are separate; uncertain candidates remain unpublished. |
+| Lighthouse remeasurement | NOT RUN | No performance claim added for this small static collection change. Prior release measurements above retain their original URL/revision/date context. |
+
+Focused screenshots, keyboard observations, link responses and build/browser logs are retained locally under gitignored `qa/work-collection*`. Long element captures can include an offscreen fixed skip-link artifact; actual viewport rendering was separately inspected and its unfocused bounding box confirmed entirely above the viewport. No site issue or hidden test failure was suppressed. Exact-head CI, Pages preview and production checks are recorded in the expansion PR and release handover.

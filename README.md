@@ -37,7 +37,7 @@ To use an installed Chrome for tests, set `CHROME_PATH=/path/to/google-chrome`. 
 | Location                    | Edit here                                                                                                        |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `src/content/site.ts`       | Name, profiles, public email, CV URL, metadata helper; canonical/free defaults are in `src/content/origins.json` |
-| `src/content/projects.ts`   | Project summaries, status, role, stack and verified repository links                                             |
+| `src/content/projects.ts`   | Featured `projects` and compact `moreProjects`: summaries, status, role, team stack and verified repository links |
 | `src/app/page.tsx`          | Homepage narrative, experience preview and Person/WebSite data                                                   |
 | `src/app/work/*/page.tsx`   | Full case study decisions, contributions, evaluation and boundaries                                              |
 | `src/app/about/page.tsx`    | Skills in context, experience, separate leadership roles, education, credentials and languages                   |

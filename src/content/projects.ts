@@ -54,3 +54,44 @@ export const projects: Project[] = [
     repo: "https://github.com/elfaroukomaradmission-a11y/Sawakli-AI",
   },
 ];
+
+export type SupportingProject = {
+  slug: string;
+  name: string;
+  context: string;
+  problem: string;
+  contribution: string;
+  status: string;
+  stack: string[];
+  note: string;
+  repository: string;
+};
+
+export const moreProjects: SupportingProject[] = [
+  {
+    slug: "so3ratk",
+    name: "So3ratk",
+    context: "Computer vision / Team project",
+    problem:
+      "Help users identify Egyptian foods in an uploaded image and inspect annotated detections.",
+    contribution:
+      "I developed the frontend for image uploads and visualizing the team’s predictions.",
+    status: "Implemented team prototype",
+    stack: ["HTML", "CSS", "JavaScript", "YOLOv8", "Inference API"],
+    note: "Model training and API work belong to the team. Live inference is unverified; this is food detection, not calorie estimation.",
+    repository: "https://github.com/MoBahgat010/So3ratk",
+  },
+  {
+    slug: "trip-planner",
+    name: "Trip Planner",
+    context: "Desktop software / University team project",
+    problem:
+      "Keep flights, hotels, activities, and itinerary costs together in a Java desktop application with CSV import and export.",
+    contribution:
+      "I worked on NetBeans compatibility and documented the project’s structure, setup, and object-oriented design.",
+    status: "Implemented coursework application",
+    stack: ["Java", "Swing", "FlatLaf", "Maven", "CSV"],
+    note: "The application was built by the team. Data persists through CSV export, using a basic parser.",
+    repository: "https://github.com/Abdelrahman2542/Trip---Planner",
+  },
+];

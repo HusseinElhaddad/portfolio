@@ -49,3 +49,23 @@ The original CV was preserved. A portfolio-specific public copy retains its one-
 5. EF SET language line specifies reading/listening.
 
 Replaced lines use the system Liberation Serif font (SIL Open Font License); original fonts remain elsewhere. The public PDF was rendered with Poppler and visually reviewed. No new achievement, date, credential or contact information was invented.
+
+## Work collection expansion — 20 October 2026
+
+The three featured case studies and their routes remain unchanged. A separate “More Projects” section contains compact supporting entries, without another navigation tab or filters. Two supporting entries do not warrant filtering. All content remains exported HTML with no new client dependency.
+
+| Published entry | Supporting evidence | Contribution and status boundary |
+| --- | --- | --- |
+| So3ratk — expanded existing entry | Owner-approved frontend role; reviewed HTML/CSS/JavaScript upload interface; source snapshot `b8a226d65b0bf6768d2004c2fb3f0f1ca7531298`; [public team repository](https://github.com/MoBahgat010/So3ratk) verified through GitHub API on 20 October 2026 | Frontend upload and annotated-prediction visualization only. YOLOv8 and inference API describe the team stack; no personal training/API ownership, calorie estimation, latency or accuracy claim. Implemented team prototype; live inference unverified, so no demo CTA. |
+| Trip Planner — new supporting entry | Team README, Java/Swing source and Maven configuration at `80fbca18065dc85873fccd89c53ab4247678c36a`; compatibility/documentation history at `9abc5c4ce0b7d7e62a1310025e75f4c3de78d8aa` and `657b855169e48d7df647f0830298a1774479b8db`; [public team repository](https://github.com/Abdelrahman2542/Trip---Planner) verified through GitHub API on 20 October 2026 | Owner explicitly clarified during this expansion: **documentation and compatibility only; omit UI ownership**. This overrides broader interpretations of the UI-fix commit. Team application provides itinerary items, costs and CSV import/export; Hussein is credited for NetBeans compatibility and documentation of setup/structure/OOP. Implemented coursework, not a production service or freshly executed desktop build. No hosted demo claimed. |
+
+### Candidates held for owner review
+
+These are not website entries and no source assets were published. The consolidated historical report supplies context, not authorization to infer technical understanding or stronger ownership.
+
+- **Titanic DEPI mini project:** training/export and interface history exists, but target leakage and training/inference scaling inconsistencies invalidate strong evaluation claims. Confirm the specific parts Hussein can explain and whether an explicitly educational, limited entry is useful. No accuracy metrics or working deployment assumed.
+- **ArabiQ:** source supports Arabic PDF extraction/normalization/chunking only. Confirm ownership and technical understanding of those modules before a preprocessing-prototype entry. No embedding/retrieval/generation or latency/quality claims.
+- **Football ETL:** substantial internship exercise with validation/upserts and historical reconciliation caveats. Confirm personal module ownership and whether a public-safe source link exists. Do not expose local files or private code to create one.
+- **TechStore:** named dimensional-modeling report and small historical Snowflake screenshots support educational design/implementation evidence. Confirm the personal implementation boundary and a public-safe link; full executable SQL and a clean all-pass result were not established.
+
+HalalKeyboard, Enterprise Multimodal Agentic RAG, Pacman Infinity, ARESCO, ArviZ Plots and HCC-LMS remain excluded. Tutorial/duplicate notebooks and unvalidated experiments were not added to fill the collection. No upstream project was modified, built, retrained or deployed for this expansion.
